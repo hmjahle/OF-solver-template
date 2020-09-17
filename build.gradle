@@ -1,0 +1,126 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://vismaartifactory.jfrog.io/artifactory/optimization-maven-virtual-repository'
+            credentials {
+                username = "$System.env.JFROG_USERNAME"
+                password = "$System.env.JFROG_ACCESS_KEY"
+            }
+            name = "maven-main-cache"
+        }
+    }
+    dependencies {
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.17.2"
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
+    }
+
+}
+
+plugins {
+    id 'java'
+    id 'application'
+    id "com.jfrog.artifactory" version "4.17.2"
+    id 'maven-publish'
+}
+
+group 'com.visma.opt'
+version = System.getenv('SOLVER_ARTIFACT_VERSION')
+mainClassName = 'Main'
+sourceCompatibility = 1.8
+
+sourceSets {
+    main.java.srcDirs = ['src/main/java']
+    main.resources.srcDirs = ['src/main/resources']
+    test.java.srcDirs = ['src/test/java']
+    test.resources.srcDirs = ['src/test/resources']
+}
+
+repositories {
+    add buildscript.repositories.getByName("maven-main-cache")
+    mavenCentral()
+}
+
+
+boolean shouldUseOrTools() {
+    return file("or-tools-centos").exists() && file("or-tools-osx").exists()
+}
+
+dependencies {
+    if (shouldUseOrTools()) {
+        compile(
+                "com.google.protobuf:protobuf-java:3.0.0",
+                files("or-tools-centos/lib/com.google.ortools.jar")
+        )
+    }
+    // #### ADD OTHER DEPENDENCIES INSIDE THE FOLLOWING COMPILE ####
+    compile(
+            'com.visma.of:solver-api:1.0'
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.13'
+}
+
+
+repositories {
+    maven {
+        url 'https://vismaartifactory.jfrog.io/artifactory/optimization-maven-virtual-repository'
+        credentials {
+            username = "$System.env.JFROG_USERNAME"
+            password = "$System.env.JFROG_ACCESS_KEY"
+        }
+    }
+}
+
+tasks.withType(Test) {
+    if (shouldUseOrTools()) {
+        if (project.hasProperty('OS') && project.getProperty('OS') == 'Linux') {
+            systemProperty("java.library.path", "or-tools-centos/lib")
+        } else {
+            systemProperty("java.library.path", "or-tools-osx")
+        }
+    }
+    environment("RUNNING_LOCALLY", "true")
+}
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    publish {
+        repository {
+            repoKey = 'optimization-maven-repository'
+            username = "$System.env.JFROG_USERNAME"
+            password = "$System.env.JFROG_ACCESS_KEY"
+            maven = true
+        }
+        defaults {
+            publications('mavenJava')
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'optimization-maven-virtual-repository'
+            username = "$System.env.JFROG_USERNAME"
+            password = "$System.env.JFROG_ACCESS_KEY"
+            maven = true
+
+        }
+    }
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "${group}"
+            version = "${version}"
+            from components.java
+        }
+    }
+}
+
+
+artifactoryPublish {
+    dependsOn jar
+}
+
+
+
+
