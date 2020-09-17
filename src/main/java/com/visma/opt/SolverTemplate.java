@@ -4,14 +4,15 @@ import com.google.ortools.linearsolver.MPConstraint;
 import com.google.ortools.linearsolver.MPObjective;
 import com.google.ortools.linearsolver.MPSolver;
 import com.google.ortools.linearsolver.MPVariable;
+import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverProvider;
 import org.json.simple.JSONObject;
 
-public class KaSolver extends com.visma.of.solverapi.Solver {
+public class SolverTemplate extends Solver {
 
 
     static {
-        SolverProvider.registerSolver(new KaSolver());
+        SolverProvider.registerSolver(new SolverTemplate());
         System.loadLibrary("jniortools");
     }
 
