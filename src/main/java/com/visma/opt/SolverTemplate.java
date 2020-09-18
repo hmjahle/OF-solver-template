@@ -13,7 +13,6 @@ public class SolverTemplate extends Solver {
 
     static {
         SolverProvider.registerSolver(new SolverTemplate());
-        System.out.println(System.getProperty("java.library.path"));
         System.loadLibrary("jniortools");
     }
 
