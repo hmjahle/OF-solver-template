@@ -71,7 +71,7 @@ repositories {
 }
 
 boolean shouldUseLinux(){
-    return System.getenv('SOLVER_ARTIFACT_VERSION')=="Linux"
+    return System.getenv('OS')=="Linux"
 }
 
 tasks.withType(Test) {
