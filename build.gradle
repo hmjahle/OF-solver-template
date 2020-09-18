@@ -70,9 +70,13 @@ repositories {
     }
 }
 
+boolean shouldUseLinux(){
+    return System.getenv('SOLVER_ARTIFACT_VERSION')=="Linux"
+}
+
 tasks.withType(Test) {
     if (shouldUseOrTools()) {
-        if (project.hasProperty('OS') && project.getProperty('OS') == 'Linux') {
+        if (shouldUseLinux()) {
             systemProperty("java.library.path", "or-tools-ubuntu")
         } else {
             systemProperty("java.library.path", "or-tools-osx")
