@@ -1,27 +1,27 @@
 openapi: 3.0.2
 info:
-  title: Route Planner API
-  description: This is the route planner API
+  title: Example API
+  description: This is the example API
   version: '0.1'
 servers:
-  - url: 'http://localhost:8080/routeplanner/api'
+  - url: 'http://localhost:8080/example/api'
 tags:
-  - name: Route Planner
-    description: Operations with the route planner
+  - name: Example
+    description: Operations with the example API
 paths:
   /start:
     post:
       summary: Starts the solver
       tags:
-        - Route Planner
+        - Example
       operationId: startSolver
       requestBody:
-        description: Starts the route optimization solver. The body should represent the necessary data to solve the route optimization problem. The solver starts the process in finding the allocation of tasks to employees and the order of the task. The result could be fetched by endpoint /result.
+        description: Lorum Ipsum
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ProblemInstance'
+              $ref: '#/components/schemas/ExampleProblemInstance'
       responses:
         '201':
           description: Solver started
@@ -31,93 +31,24 @@ paths:
     get:
       summary: Returns a solution
       tags:
-        - Route Planner
+        - Example
       operationId: getResult
       responses:
         '200':
-          description: Generated routes
+          description: Generated solution
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Task'
+                  $ref: '#/components/schemas/ExampleTask'
         '404':
           description: Result not found
 components:
   schemas:
-    TaskTravelTime:
+    ExampleTask:
       type: object
       required:
-        - taskId
-        - travelTime
-      properties:
-        taskId:
-          type: string
-        travelTime:
-          type: integer
-    EmployeeToTaskTravelTime:
-      type: object
-      required:
-        - employeeId
-        - taskTravelTimeList
-      properties:
-        employeeId:
-          type: string
-        taskTravelTimeList:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskTravelTime'
-    DependentTaskPair:
-      type: object
-      required:
-        - masterTaskId
-        - dependentTaskId
-      properties:
-        intervalStart:
-          type: integer
-        intervalEnd:
-          type: integer
-        masterTaskId:
-          type: string
-        dependentTaskId:
-          type: string
-    TaskTransportModeToTaskTravelTime:
-      type: object
-      required:
-        - fromTaskId
-        - transport
-        - taskTravelTimeList
-      properties:
-        fromTaskId:
-          type: string
-        transport:
-          type: string
-        taskTravelTimeList:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskTravelTime'
-    TaskVisitHistoryProportion:
-      type: object
-      required:
-        - taskId
-        - visitHistoryProportion
-      properties:
-        taskId:
-          type: string
-        visitHistoryProportion:
-          type: number
-    TimeWindow:
-      type: object
-      properties:
-        intervalStart:
-          type: integer
-        intervalEnd:
-          type: integer
-    Task:
-      type: object
-      required:
-        - timeWindows
         - duration
         - isStrict
         - isHeavy
@@ -130,127 +61,16 @@ components:
           type: boolean
         isHeavy:
           type: boolean
-        assignedTimeWindow:
-          $ref: '#/components/schemas/TimeWindow'
         priority:
           type: boolean
-        timeWindows:
-          type: array
-          items:
-            $ref: '#/components/schemas/TimeWindow'
-    SolverConfiguration:
+    ExampleProblemInstance:
       type: object
+      title: Example Problem Instance
+      description: This is an example problem instance. Write descripion for the class here
       required:
-        - solverRunTimeSeconds
-      properties:
-        solverRunTimeSeconds:
-          type: integer
-        maximumNumberOfHeavyTasksPerEmployee:
-          type: integer
-        travelTimeWeight:
-          type: number
-        visitHistoryWeight:
-          type: number
-        timeWindowWeight:
-          type: number
-        overqualifiedWeight:
-          type: number
-        useWorkBalance:
-          type: boolean
-    EmployeeTaskVisitHistoryProportion:
-      type: object
-      required:
-        - employeeId
-        - taskVisitHistoryProportionList
-      properties:
-        employeeId:
-          type: string
-        taskVisitHistoryProportionList:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskVisitHistoryProportion'
-    ProblemInstance:
-      type: object
-      title: Problem Instance Route Planner
-      description: This is the problem instance payload for the route planner solver
-      required:
-        - employeeWorkShifts
         - tasks
-        - taskCompatibilityMatrix
-        - travelTimeMatrix
-        - workShiftStartTravelTimes
-        - workShiftEndTravelTimes
-        - solverConfiguration
       properties:
-        employeeWorkShifts:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeWorkShift'
         tasks:
           type: array
           items:
-            $ref: '#/components/schemas/Task'
-        syncedTaskPairs:
-          type: array
-          items:
-            $ref: '#/components/schemas/DependentTaskPair'
-        incompatibleTasks:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-        taskCompatibilityMatrix:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskToPrioritizedListOfEmployees'
-        visitHistoryMatrix:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeTaskVisitHistoryProportion'
-        travelTimeMatrix:
-          type: array
-          items:
-            $ref: '#/components/schemas/TaskTransportModeToTaskTravelTime'
-        workShiftStartTravelTimes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeToTaskTravelTime'
-        workShiftEndTravelTimes:
-          type: array
-          items:
-            $ref: '#/components/schemas/EmployeeToTaskTravelTime'
-        solverConfiguration:
-          type: array
-          items:
-            $ref: '#/components/schemas/SolverConfiguration'
-    TaskToPrioritizedListOfEmployees:
-      type: object
-      required:
-        - taskId
-        - listOfCompatibleEmployeeSets
-      properties:
-        taskId:
-          type: string
-          default: '2'
-          description: Task ID of task
-        listOfCompatibleEmployeeSets:
-          type: array
-          items:
-            type: array
-            items:
-              type: string
-    EmployeeWorkShift:
-      type: object
-      required:
-        - employeeWorkShiftId
-        - transport
-      properties:
-        intervalStart:
-          type: integer
-        intervalEnd:
-          type: integer
-        employeeWorkShiftId:
-          type: string
-        transport:
-          type: string
+            $ref: '#/components/schemas/ExampleTask'

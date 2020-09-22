@@ -8,7 +8,7 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: "../schemas/Task.yml"
+        $ref: "../schemas/ExampleProblemInstance.yml"
 responses:
   201:
     description: Solver started

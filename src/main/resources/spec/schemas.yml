@@ -1,2 +1,4 @@
-Task:
-  $ref: "./schemas/Task.yml"
+ExampleTask:
+  $ref: "./schemas/ExampleTask.yml"
+ExampleProblemInstance:
+  $ref: "./schemas/ExampleProblemInstance.yml"

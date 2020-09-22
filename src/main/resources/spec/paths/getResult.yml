@@ -10,6 +10,6 @@ responses:
         schema:
           type: array
           items:
-            $ref: "../schemas/Task.yml"
+            $ref: "../schemas/ExampleTask.yml"
   404:
     description: Result not found
