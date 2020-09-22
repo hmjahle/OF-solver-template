@@ -13,7 +13,6 @@ buildscript {
         classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.17.2"
         classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.6'
     }
-
 }
 
 plugins {
@@ -56,7 +55,6 @@ repositories {
     mavenCentral()
 }
 
-
 boolean shouldUseOrTools() {
     return file("or-tools-ubuntu").exists() && file("or-tools-osx").exists()
 }
@@ -85,7 +83,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.13'
 }
 
-
 repositories {
     maven {
         url 'https://vismaartifactory.jfrog.io/artifactory/optimization-maven-virtual-repository'
@@ -96,8 +93,8 @@ repositories {
     }
 }
 
-boolean shouldUseLinux(){
-    return System.getenv('OS')=="Linux"
+static boolean shouldUseLinux() {
+    return System.getenv('OS') == "Linux"
 }
 
 tasks.withType(Test) {
@@ -121,15 +118,16 @@ static void writeOpenAPISpecToFile(def directory, def fileName, def extension, d
         }
     }
 }
-writeOpenAPISpecToFile("src/main/resources/spec","schemas",".yml",fetchSchemaSpecifications())
+
+writeOpenAPISpecToFile("src/main/resources/spec", "schemas", ".yml", fetchSchemaSpecifications())
 
 static List<String> fetchSchemaSpecifications() {
     List<String> schemaSpecification = new ArrayList<>()
     File schemas = new File('src/main/resources/spec/schemas')
     schemas.eachFile {
         String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
-        schemaSpecification.add(fileName+":")
-        schemaSpecification.add("  \$ref: \"./schemas/"+fileName+".yml\"")
+        schemaSpecification.add(fileName + ":")
+        schemaSpecification.add("  \$ref: \"./schemas/" + fileName + ".yml\"")
     }
     return schemaSpecification
 }
@@ -141,16 +139,15 @@ static String getFileNamesToCreateModelsFor() {
     String models = ""
     File dh = new File('src/main/resources/spec/schemas')
     dh.eachFile {
-        models+="${it.name}".take("${it.name}".lastIndexOf('.'))+","
+        models += "${it.name}".take("${it.name}".lastIndexOf('.')) + ","
     }
     return models.take(models.lastIndexOf(','))
 }
 
-
 task bundleOpenAPI(type: Exec) {
     // This function runs a script to create the final openapi.yaml file
     // based on the openapi-spec.yml file in 'src/main/resources/spec'
-    commandLine 'sh','bundleOpenAPI.sh'
+    commandLine 'sh', 'bundleOpenAPI.sh'
 }
 
 /* java client configuration */
@@ -225,7 +222,6 @@ artifactory {
         }
     }
 }
-
 
 publishing {
     publications {
