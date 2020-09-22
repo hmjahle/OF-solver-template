@@ -1,0 +1,24 @@
+TaskTravelTime:
+  $ref: "./schemas/TaskTravelTime.yml"
+EmployeeToTaskTravelTime:
+  $ref: "./schemas/EmployeeToTaskTravelTime.yml"
+DependentTaskPair:
+  $ref: "./schemas/DependentTaskPair.yml"
+TaskTransportModeToTaskTravelTime:
+  $ref: "./schemas/TaskTransportModeToTaskTravelTime.yml"
+TaskVisitHistoryProportion:
+  $ref: "./schemas/TaskVisitHistoryProportion.yml"
+TimeWindow:
+  $ref: "./schemas/TimeWindow.yml"
+Task:
+  $ref: "./schemas/Task.yml"
+SolverConfiguration:
+  $ref: "./schemas/SolverConfiguration.yml"
+EmployeeTaskVisitHistoryProportion:
+  $ref: "./schemas/EmployeeTaskVisitHistoryProportion.yml"
+ProblemInstance:
+  $ref: "./schemas/ProblemInstance.yml"
+TaskToPrioritizedListOfEmployees:
+  $ref: "./schemas/TaskToPrioritizedListOfEmployees.yml"
+EmployeeWorkShift:
+  $ref: "./schemas/EmployeeWorkShift.yml"

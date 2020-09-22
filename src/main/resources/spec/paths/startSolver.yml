@@ -1,0 +1,16 @@
+summary: Starts the solver
+tags:
+  - Route Planner
+operationId: startSolver
+requestBody:
+  description: Starts the route optimization solver. The body should represent the necessary data to solve the route optimization problem. The solver starts the process in finding the allocation of tasks to employees and the order of the task. The result could be fetched by endpoint /result.
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/ProblemInstance.yml"
+responses:
+  201:
+    description: Solver started
+  400:
+    description: Data validation error

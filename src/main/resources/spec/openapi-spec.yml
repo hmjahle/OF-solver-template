@@ -1,0 +1,23 @@
+openapi: 3.0.2
+info:
+  title: Route Planner API
+  description: This is the route planner API
+  version: '0.1'
+servers:
+  - url: http://localhost:8080/routeplanner/api
+
+tags:
+  - name: Route Planner
+    description: Operations with the route planner
+
+paths:
+  /start:
+    post:
+      $ref: "./paths/startSolver.yml"
+  /result:
+    get:
+      $ref: "./paths/getResult.yml"
+
+components:
+  schemas:
+    $ref: "./schemas.yml"

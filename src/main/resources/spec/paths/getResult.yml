@@ -1,0 +1,15 @@
+summary: Returns a solution
+tags:
+  - Route Planner
+operationId: getResult
+responses:
+  200:
+    description: Generated routes
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../schemas/Task.yml"
+  404:
+    description: Result not found
