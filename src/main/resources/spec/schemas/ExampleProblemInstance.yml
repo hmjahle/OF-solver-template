@@ -1,6 +1,6 @@
 type: object
 title: "Example Problem Instance"
-description: "This is an example problem instance. Write descripion for the class here"
+description: "This is an example problem instance. Write description for the class here"
 required:
   - tasks
 properties:
