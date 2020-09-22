@@ -1,6 +1,5 @@
 type: object
 required:
-  - timeWindows
   - duration
   - isStrict
   - isHeavy
@@ -13,13 +12,7 @@ properties:
     type: boolean
   isHeavy:
     type: boolean
-  assignedTimeWindow:
-    $ref: "./TimeWindow.yml"
   priority:
     type: boolean
-  timeWindows:
-    type: array
-    items:
-      $ref: "./TimeWindow.yml"
 
 
