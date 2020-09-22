@@ -21,7 +21,23 @@ plugins {
     id 'application'
     id "com.jfrog.artifactory" version "4.17.2"
     id 'maven-publish'
+    id "org.openapi.generator" version "4.2.1"
 }
+
+// dependency versions
+ext {
+    solver_api_version = "1.0"
+    swagger_annotations_version = "1.5.22"
+    jackson_version = "2.9.9"
+    jackson_databind_version = "2.9.9"
+    spring_web_version = "4.3.9.RELEASE"
+    jodatime_version = "2.9.9"
+    junit_version = "4.12"
+    validation_version = "2.0.1.Final"
+    findbugs_version = "3.0.2"
+    javax_annotation_version = "1.3.2"
+}
+
 
 group 'com.visma.opt'
 version = System.getenv('SOLVER_ARTIFACT_VERSION')
@@ -54,7 +70,17 @@ dependencies {
     }
     // #### ADD OTHER DEPENDENCIES INSIDE THE FOLLOWING COMPILE ####
     compile(
-            'com.visma.of:solver-api:1.0'
+            "com.visma.of:solver-api:$solver_api_version",
+            "io.swagger:swagger-annotations:$swagger_annotations_version",
+            "com.google.code.findbugs:jsr305:$findbugs_version",
+            "org.springframework:spring-web:$spring_web_version",
+            "com.fasterxml.jackson.core:jackson-core:$jackson_version",
+            "com.fasterxml.jackson.core:jackson-annotations:$jackson_version",
+            "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version",
+            "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jackson_version",
+            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version",
+            "javax.annotation:javax.annotation-api:$javax_annotation_version",
+            "javax.validation:validation-api:$validation_version"
     )
     testCompile group: 'junit', name: 'junit', version: '4.13'
 }
@@ -84,6 +110,97 @@ tasks.withType(Test) {
     }
     environment("RUNNING_LOCALLY", "true")
 }
+
+//
+// Code to automatically add specification for schemas to the openapi-spec file
+//
+static void writeOpenAPISpecToFile(def directory, def fileName, def extension, def infoList) {
+    new File("$directory/$fileName$extension").withWriter { out ->
+        infoList.each {
+            out.println it
+        }
+    }
+}
+writeOpenAPISpecToFile("src/main/resources/spec","schemas",".yml",fetchSchemaSpecifications())
+
+static List<String> fetchSchemaSpecifications() {
+    List<String> schemaSpecification = new ArrayList<>()
+    File schemas = new File('src/main/resources/spec/schemas')
+    schemas.eachFile {
+        String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
+        schemaSpecification.add(fileName+":")
+        schemaSpecification.add("  \$ref: \"./schemas/"+fileName+".yml\"")
+    }
+    return schemaSpecification
+}
+//
+
+static String getFileNamesToCreateModelsFor() {
+    // This function loops over the files in src/main/resources/spec/schemas
+    // and returns a string with all file names, separated by ",", without extensions
+    String models = ""
+    File dh = new File('src/main/resources/spec/schemas')
+    dh.eachFile {
+        models+="${it.name}".take("${it.name}".lastIndexOf('.'))+","
+    }
+    return models.take(models.lastIndexOf(','))
+}
+
+
+task bundleOpenAPI(type: Exec) {
+    // This function runs a script to create the final openapi.yaml file
+    // based on the openapi-spec.yml file in 'src/main/resources/spec'
+    commandLine 'sh','bundleOpenAPI.sh'
+}
+
+/* java client configuration */
+task buildJavaClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, dependsOn: ['bundleOpenAPI']) {
+    generatorName = "java"
+    inputSpec = "$rootDir/openapi.yaml".toString()
+    outputDir = "$buildDir/java-client".toString()
+    groupId = "$project.group"
+    id = "$project.name-java-client"
+    version = "$project.version"
+    ignoreFileOverride = "$rootDir/openapi-generator-ignore"
+    modelPackage = "com.visma.of.api.model"
+    validateSpec = true
+    generateModelTests = false
+    generateApiDocumentation = false
+    generateModelDocumentation = false
+    generateApiTests = false
+    configOptions = [
+            java8               : "true",
+            serializationLibrary: "jackson",
+            library             : "resttemplate",
+            useBeanValidation   : "true",
+            enableBuilderSupport: "true"
+    ]
+    systemProperties = [
+            models: getFileNamesToCreateModelsFor()
+    ]
+}
+
+task generateCode(type: Copy, dependsOn: ['buildJavaClient']) {
+
+    def srcPath = "$buildDir/java-client"
+    def targetPath = "$rootDir/docs"
+
+    // copy docs
+    from(srcPath + "/docs")
+    into(targetPath)
+    include('*.md')
+}
+
+
+// attach the generated folder as source for this project
+sourceSets {
+    main {
+        java {
+            srcDir "$buildDir/java-client/src/main/java"
+        }
+    }
+}
+
 
 artifactory {
     contextUrl = "${artifactory_contextUrl}"
@@ -125,6 +242,8 @@ artifactoryPublish {
     dependsOn jar
 }
 
+// code will be generated during compilation
+compileJava.dependsOn(generateCode)
 
 
 

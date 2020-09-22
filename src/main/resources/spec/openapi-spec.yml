@@ -1,14 +1,14 @@
 openapi: 3.0.2
 info:
-  title: Route Planner API
-  description: This is the route planner API
+  title: Example API
+  description: This is the example API
   version: '0.1'
 servers:
-  - url: http://localhost:8080/routeplanner/api
+  - url: http://localhost:8080/example/api
 
 tags:
-  - name: Route Planner
-    description: Operations with the route planner
+  - name: Example
+    description: Operations with the example API
 
 paths:
   /start:

@@ -1,14 +1,14 @@
 summary: Starts the solver
 tags:
-  - Route Planner
+  - Example
 operationId: startSolver
 requestBody:
-  description: Starts the route optimization solver. The body should represent the necessary data to solve the route optimization problem. The solver starts the process in finding the allocation of tasks to employees and the order of the task. The result could be fetched by endpoint /result.
+  description: Lorum Ipsum
   required: true
   content:
     application/json:
       schema:
-        $ref: "../schemas/ProblemInstance.yml"
+        $ref: "../schemas/Task.yml"
 responses:
   201:
     description: Solver started

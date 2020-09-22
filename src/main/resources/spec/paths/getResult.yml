@@ -1,10 +1,10 @@
 summary: Returns a solution
 tags:
-  - Route Planner
+  - Example
 operationId: getResult
 responses:
   200:
-    description: Generated routes
+    description: Generated solution
     content:
       application/json:
         schema:
