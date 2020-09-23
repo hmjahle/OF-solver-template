@@ -24,6 +24,12 @@ If you would like to run or-tools in a main class locally, vm options need to be
 
 Download the files or-tools-centos and or-tools-osx and put them in top folder (under ka-solver)
 
+You also need to install swagger-cli, using this command:
+
+```
+npm install swagger-cli
+```
+
 Finish by running the following command which downloads the or-tools. This can be done once (creates build folder with or-tools).
 
 ```bash
@@ -59,5 +65,31 @@ gradle clean build
 In order to publish to artifactory (this might require the ENV variables to be defined in .bash_profile)
 
 ```bash
-gradle artifactoryPublish
+gradle clean artifactoryPublish
 ``` 
+# API Documentation Guide
+This guide describes how to document endpoints and payloads for a given solver project. 
+The outcome of the documentation process is the **openapi.yml** file, that will be hosted on AWS.
+
+## Documentation process
+
+The complete **openapi.yml** file is generated using the *swagger-cli bundle* command, which bundles the individual documentation files, located in the *resources/spec*-folder. 
+The **openapi-spec.yml** file defines the outcome of the bundling, and should only be modified when adding documentation for an endpoint.
+**Schemas.yml**, which is generated from a groovy function in **build.gradle**, is required for the bundling to work.
+
+
+[How to write documentation](https://swagger.io/specification/)
+
+### Adding documentation for a schema (DTO)
+When adding a new schema, simply add **_fileName_.yml** to the *schemas* folder, and write the documentation in the file. 
+
+### Adding documentation for an endpoint
+1. Add **_endpointName_.yml** to the *paths* folder and write documentation for the endpoint in that file.
+2. In **openapi-spec.yml** under *paths*, add the name of the endpoint, then the request type, and a reference to the **_endpointName_.yml** file. E.g. 
+```
+paths:
+  /tasks:
+    get:
+      $ref: "./paths/listTasks.yml"
+```
+

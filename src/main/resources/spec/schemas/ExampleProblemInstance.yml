@@ -1,0 +1,10 @@
+type: object
+title: "Example Problem Instance"
+description: "This is an example problem instance. Write description for the class here"
+required:
+  - tasks
+properties:
+  tasks:
+    type: array
+    items:
+      $ref: "./ExampleTask.yml"

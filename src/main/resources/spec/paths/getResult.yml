@@ -1,0 +1,15 @@
+summary: Returns a solution
+tags:
+  - Example
+operationId: getResult
+responses:
+  200:
+    description: Generated solution
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../schemas/ExampleTask.yml"
+  404:
+    description: Result not found

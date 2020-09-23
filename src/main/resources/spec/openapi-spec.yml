@@ -1,0 +1,23 @@
+openapi: 3.0.2
+info:
+  title: Example API
+  description: This is the example API
+  version: '0.1'
+servers:
+  - url: http://localhost:8080/example/api
+
+tags:
+  - name: Example
+    description: Operations with the example API
+
+paths:
+  /start:
+    post:
+      $ref: "./paths/startSolver.yml"
+  /result:
+    get:
+      $ref: "./paths/getResult.yml"
+
+components:
+  schemas:
+    $ref: "./schemas.yml"

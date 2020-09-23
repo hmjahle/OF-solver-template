@@ -1,0 +1,18 @@
+summary: Starts the solver
+tags:
+  - Example
+operationId: startSolver
+requestBody:
+  description: Lorum Ipsum
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/ExampleProblemInstance.yml"
+responses:
+  201:
+    description: Solver started
+  400:
+    description: Data validation error
+  500:
+    description: Internal server error
