@@ -14,3 +14,5 @@ responses:
     description: Solver started
   400:
     description: Data validation error
+  500:
+    description: Internal server error
