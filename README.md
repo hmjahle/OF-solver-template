@@ -24,6 +24,12 @@ If you would like to run or-tools in a main class locally, vm options need to be
 
 Download the files or-tools-centos and or-tools-osx and put them in top folder (under ka-solver)
 
+You also need to install swagger-cli, using this command:
+
+```
+npm install swagger-cli
+```
+
 Finish by running the following command which downloads the or-tools. This can be done once (creates build folder with or-tools).
 
 ```bash
@@ -59,7 +65,7 @@ gradle clean build
 In order to publish to artifactory (this might require the ENV variables to be defined in .bash_profile)
 
 ```bash
-gradle artifactoryPublish
+gradle clean artifactoryPublish
 ``` 
 # API Documentation Guide
 This guide describes how to document endpoints and payloads for a given solver project. 
