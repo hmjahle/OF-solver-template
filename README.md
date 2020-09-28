@@ -27,7 +27,7 @@ Download the files or-tools-centos and or-tools-osx and put them in top folder (
 You also need to install swagger-cli, using this command:
 
 ```
-npm install swagger-cli -g
+npm install -g swagger-cli
 ```
 
 Finish by running the following command which downloads the or-tools. This can be done once (creates build folder with or-tools).
