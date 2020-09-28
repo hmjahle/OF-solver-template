@@ -36,15 +36,18 @@ Finish by running the following command which downloads the or-tools. This can b
 gradle clean build
 ``` 
 
+## Print version
+To print the version of the project:
+```bash
+gradle -q printVersion
+``` 
+
 ## Environmental variables
 
 Some variables need to be defined:
 
 * JFROG_USERNAME
 * JFROG_ACCESS_KEY
-* SOLVER_ARTIFACT_VERSION
-
-Artifact version is the version number uploaded to jfrog artifact.
 
 To be able to run locally in IntelliJ, remember to set these environmental variables in .bash_profile.
 
