@@ -133,11 +133,21 @@ writeOpenAPISpecToFile("src/main/resources/spec", "schemas", ".yml", fetchSchema
 
 static List<String> fetchSchemaSpecifications() {
     List<String> schemaSpecification = new ArrayList<>()
-    File schemas = new File('src/main/resources/spec/schemas')
-    schemas.eachFile {
+    File schemasRequest = new File('src/main/resources/spec/schemas/request')
+    schemasRequest.eachFile {
         String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
-        schemaSpecification.add(fileName + ":")
-        schemaSpecification.add("  \$ref: \"./schemas/" + fileName + ".yml\"")
+        if (fileName != "") {
+            schemaSpecification.add(fileName + ":")
+            schemaSpecification.add("  \$ref: \"./schemas/request/" + fileName + ".yml\"")
+        }
+    }
+    File schemasResponse = new File('src/main/resources/spec/schemas/response')
+    schemasResponse.eachFile {
+        String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
+        if (fileName != "") {
+            schemaSpecification.add(fileName + ":")
+            schemaSpecification.add("  \$ref: \"./schemas/response/" + fileName + ".yml\"")
+        }
     }
     return schemaSpecification
 }

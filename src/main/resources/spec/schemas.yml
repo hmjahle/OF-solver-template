@@ -1,4 +1,0 @@
-ExampleTask:
-  $ref: "./schemas/ExampleTask.yml"
-ExampleProblemInstance:
-  $ref: "./schemas/ExampleProblemInstance.yml"

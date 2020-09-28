@@ -27,7 +27,7 @@ Download the files or-tools-centos and or-tools-osx and put them in top folder (
 You also need to install swagger-cli, using this command:
 
 ```
-npm install swagger-cli
+npm install -g swagger-cli
 ```
 
 Finish by running the following command which downloads the or-tools. This can be done once (creates build folder with or-tools).
@@ -84,7 +84,8 @@ The **openapi-spec.yml** file defines the outcome of the bundling, and should on
 [How to write documentation](https://swagger.io/specification/)
 
 ### Adding documentation for a schema (DTO)
-When adding a new schema, simply add **_fileName_.yml** to the *schemas* folder, and write the documentation in the file. 
+When adding a new schema, simply add **_fileName_.yml** to one of the folders in the *schemas* folder, and write the documentation in the file. 
+NOTE: do not add any other folders than the _response_ and _request_ folder. 
 
 ### Adding documentation for an endpoint
 1. Add **_endpointName_.yml** to the *paths* folder and write documentation for the endpoint in that file.
