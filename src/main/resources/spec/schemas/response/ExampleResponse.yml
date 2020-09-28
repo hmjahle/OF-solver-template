@@ -14,5 +14,3 @@ properties:
     type: boolean
   priority:
     type: boolean
-
-
