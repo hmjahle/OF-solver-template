@@ -39,9 +39,23 @@ ext {
 
 
 group 'com.visma.opt'
-version = 1.0
 mainClassName = 'Main'
 sourceCompatibility = 1.8
+
+task incrementVersion {
+    doLast{
+        Properties props = new Properties()
+        File propsFile = new File('gradle.properties')
+        props.load(propsFile.newDataInputStream())
+        def stable_project_version = props.getProperty('version') as String
+        def (major, minor) = stable_project_version.tokenize('.')
+        minor = String.valueOf(minor.toInteger() + 1)
+        String project_version = major + '.' + minor
+        props.setProperty('version', project_version)
+        props.store(propsFile.newWriter(), null)
+        println(project_version)
+    }
+}
 
 task printVersion {
     // any code that goes here is part of configuring the task
