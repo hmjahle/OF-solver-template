@@ -38,6 +38,7 @@ ext {
 }
 
 
+
 group 'com.visma.opt'
 mainClassName = 'Main'
 sourceCompatibility = 1.8
