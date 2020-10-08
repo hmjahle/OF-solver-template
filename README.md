@@ -98,7 +98,7 @@ NOTE: do not add any other folders than the _response_ and _request_ folder.
     httpMethod: "POST"
     type: "aws_proxy"
     ```
-    at the root-level. **NOTE**: Change _httpMethod_ correctly and _AWSServerlessAPIName_ to the name specified for the API in the file **_of-solver-template-env.yaml_** in _SolverService_.
+    at the root-level. This part makes sure to invoke the correct aws service. **NOTE**: Change _httpMethod_ correctly and _AWSServerlessAPIName_ to the name specified for the API in the file **_of-solver-template-env.yaml_** in _SolverService_.
 
 2. In **openapi-spec.yml** under *paths*, add the name of the endpoint, then the request type, and a reference to the **_endpointName_.yml** file. E.g. 
 ```

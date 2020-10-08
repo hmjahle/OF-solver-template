@@ -14,7 +14,7 @@ paths:
   /start_solver:
     post:
       $ref: "./paths/startSolver.yml"
-  /get_result:
+  /result:
     get:
       $ref: "./paths/getResult.yml"
 
