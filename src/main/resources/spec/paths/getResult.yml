@@ -2,6 +2,12 @@ summary: Returns a solution
 tags:
   - Example
 operationId: getResult
+x-amazon-apigateway-integration:
+  uri:
+    Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetResult.Arn}/invocations'
+  passthroughBehavior: "when_no_match"
+  httpMethod: "GET"
+  type: "aws_proxy"
 responses:
   200:
     description: Generated solution
