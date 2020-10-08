@@ -11,7 +11,7 @@ tags:
     description: Operations with the example API
 
 paths:
-  /start:
+  /start_solver:
     post:
       $ref: "./paths/startSolver.yml"
   /result:

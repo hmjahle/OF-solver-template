@@ -88,7 +88,18 @@ When adding a new schema, simply add **_fileName_.yml** to one of the folders in
 NOTE: do not add any other folders than the _response_ and _request_ folder. 
 
 ### Adding documentation for an endpoint
-1. Add **_endpointName_.yml** to the *paths* folder and write documentation for the endpoint in that file.
+1. Add **_endpointName_.yml** to the *paths* folder and write documentation for the endpoint in that file. Make sure to add this part: 
+
+    ```
+    x-amazon-apigateway-integration:
+    uri:
+        Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${AWSServerlessAPIName.Arn}/invocations'
+    passthroughBehavior: "when_no_match"
+    httpMethod: "POST"
+    type: "aws_proxy"
+    ```
+    at the root-level. This part makes sure to invoke the correct aws service. **NOTE**: Change _httpMethod_ correctly and _AWSServerlessAPIName_ to the name specified for the API in the file **_of-solver-template-env.yaml_** in _SolverService_.
+
 2. In **openapi-spec.yml** under *paths*, add the name of the endpoint, then the request type, and a reference to the **_endpointName_.yml** file. E.g. 
 ```
 paths:
