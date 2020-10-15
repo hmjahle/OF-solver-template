@@ -38,7 +38,7 @@ ext {
 }
 
 
-group 'com.visma.opt'
+group 'com.visma.of'
 mainClassName = 'Main'
 sourceCompatibility = 1.8
 
@@ -261,6 +261,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId = "${group}"
+            artifactId = "solvertemplate"
             version = "${version}"
             from components.java
         }
