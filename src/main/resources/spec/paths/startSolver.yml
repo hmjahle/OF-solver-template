@@ -8,7 +8,7 @@ requestBody:
   content:
     application/json:
       schema:
-        $ref: "../schemas/request/ExampleProblemInstance.yml"
+        $ref: "../schemas/request/BinPackingDataProvider.yml"
 x-amazon-apigateway-integration:
   uri:
     Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartSolver.Arn}/invocations'

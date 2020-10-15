@@ -16,6 +16,6 @@ responses:
         schema:
           type: array
           items:
-            $ref: "../schemas/response/ExampleResponse.yml"
+            $ref: "../schemas/response/BinPackingSolution.yml"
   404:
     description: Result not found

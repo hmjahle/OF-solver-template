@@ -1,0 +1,12 @@
+type: object
+required:
+  - binNumber
+properties:
+  binNumber:
+    type: integer
+  items:
+    type: array
+    items:
+      $ref: "./Item.yml"
+  weight:
+    type: double
