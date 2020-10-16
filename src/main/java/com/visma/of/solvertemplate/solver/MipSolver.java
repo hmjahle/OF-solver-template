@@ -60,20 +60,17 @@ public class MipSolver {
 
         // Check that the problem has an optimal solution.
         if (resultStatus == MPSolver.ResultStatus.OPTIMAL) {
-            System.out.println("Number of bins used: " + objective.value());
             solution.setNumberOfBins((int)Math.floor(objective.value()));
             List<Bin> bins = new ArrayList<>();
             double totalWeight = 0;
             for (int j = 0; j < numBins; ++j) {
                 if (y[j].solutionValue() == 1) {
-                    System.out.println("\nBin " + j + "\n");
                     Bin bin = new Bin();
                     bin.setBinNumber(j);
                     List<Item> items = new ArrayList<>();
                     double binWeight = 0;
                     for (int i = 0; i < numItems; ++i) {
                         if (x[i][j].solutionValue() == 1) {
-                            System.out.println("Item " + i + " - weight: " + weights[i]);
                             Item item = new Item();
                             item.setItemNumber(i);
                             item.setWeight(weights[i]);
@@ -81,14 +78,12 @@ public class MipSolver {
                             items.add(item);
                         }
                     }
-                    System.out.println("Packed bin weight: " + binWeight);
                     bin.setItems(items);
                     bin.setWeight(binWeight);
                     totalWeight += binWeight;
                     bins.add(bin);
                 }
             }
-            System.out.println("\nTotal packed weight: " + totalWeight);
             solution.setNumberOfBins(bins.size());
             solution.setBins(bins);
             solution.setTotalPacked(totalWeight);

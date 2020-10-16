@@ -23,9 +23,9 @@ public class SolvertemplateSolver extends Solver {
         BinPackingModel model = BinPackingModel.generateModelFromDataProvider(dataProvider);
 
         // Create the linear solver with the SCIP backend.
-        MPSolver solver = new MPSolver("SCIP", MPSolver.OptimizationProblemType.CBC_MIXED_INTEGER_PROGRAMMING);
+        MPSolver solver = new MPSolver("CBC", MPSolver.OptimizationProblemType.CBC_MIXED_INTEGER_PROGRAMMING);
         if (solver == null) {
-            System.out.println("Could not create solver SCIP");
+            System.out.println("Could not create solver CBC");
             return;
         }
         BinPackingSolution solution = MipSolver.runMipSolver(solver, model.getNumItems(), model.getNumBins(), model.getWeights(), model.getBinCapacity());
