@@ -1,0 +1,12 @@
+type: object
+required:
+  - bins
+properties:
+  numberOfBins:
+    type: integer
+  bins:
+    type: array
+    items:
+      $ref: "./Bin.yml"
+  totalPacked:
+    type: double
