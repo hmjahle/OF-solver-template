@@ -29,7 +29,7 @@ public class SolvertemplateSolver extends Solver {
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
         for(SolverListener listener : getListeners()){
             listener.newBestSolutionFound(jsonSolution);
+            listener.solverFinished();
         }
-        System.out.println(jsonSolution);
     }
 }
