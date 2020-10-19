@@ -3,7 +3,7 @@ package com.visma.of.solvertemplate.validator;
 import com.visma.of.api.model.BinPackingDataProvider;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.Validator;
-import com.visma.of.solvertemplate.solver.BinPackingModel;
+import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 
 public class SolvertemplateValidator extends Validator {
 
