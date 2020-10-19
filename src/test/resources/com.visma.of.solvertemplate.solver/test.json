@@ -1,0 +1,74 @@
+{
+  "bins": [
+    {
+      "binNumber": 0,
+      "weight": 99.0,
+      "items": [
+        {
+          "itemNumber": 5,
+          "weight": 27.0
+        },
+        {
+          "itemNumber": 7,
+          "weight": 42.0
+        },
+        {
+          "itemNumber": 10,
+          "weight": 30.0
+        }
+      ]
+    },
+    {
+      "binNumber": 1,
+      "weight": 90.0,
+      "items": [
+        {
+          "itemNumber": 0,
+          "weight": 48.0
+        },
+        {
+          "itemNumber": 6,
+          "weight": 42.0
+        }
+      ]
+    },
+    {
+      "binNumber": 2,
+      "weight": 85.0,
+      "items": [
+        {
+          "itemNumber": 1,
+          "weight": 30.0
+        },
+        {
+          "itemNumber": 2,
+          "weight": 19.0
+        },
+        {
+          "itemNumber": 4,
+          "weight": 36.0
+        }
+      ]
+    },
+    {
+      "binNumber": 3,
+      "weight": 96.0,
+      "items": [
+        {
+          "itemNumber": 3,
+          "weight": 36.0
+        },
+        {
+          "itemNumber": 8,
+          "weight": 36.0
+        },
+        {
+          "itemNumber": 9,
+          "weight": 24.0
+        }
+      ]
+    }
+  ],
+  "numberOfBins": 4,
+  "totalPacked": 370.0
+}

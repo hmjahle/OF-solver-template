@@ -7,6 +7,6 @@ properties:
   bins:
     type: array
     items:
-      $ref: "./Bin.yml"
+      $ref: "./BinResult.yml"
   totalPacked:
     type: double
