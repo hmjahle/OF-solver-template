@@ -1,45 +1,34 @@
-package com.visma.of.solvertemplate.solver;
+package com.visma.of.solvertemplate.solver.solvers;
 
-import com.visma.of.api.model.BinPackingSolution;
+import com.visma.of.solvertemplate.solver.model.BinPackingModel;
+import com.visma.of.solvertemplate.solver.solution.Bin;
+import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
+import com.visma.of.solvertemplate.solver.solution.Item;
+
 
 public class RandomSolution {
 
-    public static BinPackingSolution generateRandomSolution(BinPackingModel model){
-        // Initialize result (Count of bins)
-        BinPackingSolution solution = new BinPackingSolution();
+    public static BinPackingSolution generateBestFitSolution(BinPackingModel model){
+        BinPackingSolution solution = new BinPackingSolution(model);
         int res = 0;
-
-        // Create an array to store remaining space in bins
-        // there can be at most n bins
-        double[]bin_rem = new double[model.getNumBins()];
-
-        // Place items one by one
-        for (int i = 0; i < model.getNumBins(); i++) {
-            // Find the best bin that ca\n accomodate
-            // weight[i]
-
-            // Initialize minimum space left and index
-            // of best bin
+        for (Item item : solution.getItems()) {
             double min = model.getBinCapacity() + 1;
             int bi = 0;
 
             for (int j = 0; j < res; j++)
             {
-                if (bin_rem[j] >= model.getWeights()[i] && bin_rem[j] - model.getWeights()[i] < min) {
+                if (solution.getBins().get(j).getRemainingCapacity() >= item.getWeight() && solution.getBins().get(j).getRemainingCapacity() - item.getWeight() < min) {
                     bi = j;
-                    min = bin_rem[j] - model.getWeights()[i];
+                    min = solution.getBins().get(j).getRemainingCapacity() - item.getWeight();
                 }
             }
-
-            // If no bin could accommodate weight[i],
-            // create a new bin
             if (min == model.getBinCapacity() + 1) {
-                bin_rem[res] = model.getBinCapacity() - model.getWeights()[i];
+                solution.addBin(new Bin(model.getBinCapacity(), res));
+                solution.addItem(item.getItemNumber(), res);
                 res++;
-            } else // Assign the item to best bin
-                bin_rem[bi] -= model.getWeights()[i];
+            } else
+                solution.addItem(item.getItemNumber(), bi);
         }
-        solution.setNumberOfBins(res);
         return solution;
     }
 }

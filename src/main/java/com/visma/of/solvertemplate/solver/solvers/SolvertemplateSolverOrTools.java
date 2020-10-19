@@ -1,11 +1,12 @@
-package com.visma.of.solvertemplate.solver;
+package com.visma.of.solvertemplate.solver.solvers;
 
 import com.google.ortools.linearsolver.MPSolver;
 import com.visma.of.api.model.BinPackingDataProvider;
-import com.visma.of.api.model.BinPackingSolution;
+import com.visma.of.api.model.BinPackingResult;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverListener;
 import com.visma.of.solverapi.SolverProvider;
+import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import org.json.simple.JSONObject;
 
 public class SolvertemplateSolverOrTools extends Solver {
@@ -29,11 +30,12 @@ public class SolvertemplateSolverOrTools extends Solver {
             System.out.println("Could not create solver CBC");
             return;
         }
-        BinPackingSolution solution = MipSolver.runMipSolver(solver, model.getNumItems(), model.getNumBins(), model.getWeights(), model.getBinCapacity());
+        BinPackingResult solution = MipSolver.runMipSolver(solver, model.getNumItems(), model.getNumBins(), model.getWeights(), model.getBinCapacity());
         JSONObject jsonSolution = Solver.objectToJsonObject(solution);
         for(SolverListener listener : getListeners()){
             listener.newBestSolutionFound(jsonSolution);
         }
+        System.out.println(jsonSolution);
     }
     
 

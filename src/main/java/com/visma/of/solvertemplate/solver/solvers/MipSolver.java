@@ -1,19 +1,19 @@
-package com.visma.of.solvertemplate.solver;
+package com.visma.of.solvertemplate.solver.solvers;
 
 import com.google.ortools.linearsolver.MPConstraint;
 import com.google.ortools.linearsolver.MPObjective;
 import com.google.ortools.linearsolver.MPSolver;
 import com.google.ortools.linearsolver.MPVariable;
-import com.visma.of.api.model.Bin;
-import com.visma.of.api.model.BinPackingSolution;
-import com.visma.of.api.model.Item;
+import com.visma.of.api.model.BinPackingResult;
+import com.visma.of.api.model.BinResult;
+import com.visma.of.api.model.ItemResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MipSolver {
 
-    public static BinPackingSolution runMipSolver(MPSolver solver, int numItems, int numBins, Double[] weights, int binCapacity){
+    public static BinPackingResult runMipSolver(MPSolver solver, int numItems, int numBins, Double[] weights, int binCapacity){
         MPVariable[][] x = new MPVariable[numItems][numBins];
         for (int i = 0; i < numItems; ++i) {
             for (int j = 0; j < numBins; ++j) {
@@ -56,22 +56,22 @@ public class MipSolver {
         objective.setMinimization();
 
         final MPSolver.ResultStatus resultStatus = solver.solve();
-        BinPackingSolution solution = new BinPackingSolution();
+        BinPackingResult solution = new BinPackingResult();
 
         // Check that the problem has an optimal solution.
         if (resultStatus == MPSolver.ResultStatus.OPTIMAL) {
             solution.setNumberOfBins((int)Math.floor(objective.value()));
-            List<Bin> bins = new ArrayList<>();
+            List<BinResult> bins = new ArrayList<>();
             double totalWeight = 0;
             for (int j = 0; j < numBins; ++j) {
                 if (y[j].solutionValue() == 1) {
-                    Bin bin = new Bin();
+                    BinResult bin = new BinResult();
                     bin.setBinNumber(j);
-                    List<Item> items = new ArrayList<>();
+                    List<ItemResult> items = new ArrayList<>();
                     double binWeight = 0;
                     for (int i = 0; i < numItems; ++i) {
                         if (x[i][j].solutionValue() == 1) {
-                            Item item = new Item();
+                            ItemResult item = new ItemResult();
                             item.setItemNumber(i);
                             item.setWeight(weights[i]);
                             binWeight += weights[i];

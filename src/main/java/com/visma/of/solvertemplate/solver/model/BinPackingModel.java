@@ -1,4 +1,4 @@
-package com.visma.of.solvertemplate.solver;
+package com.visma.of.solvertemplate.solver.model;
 
 import com.visma.of.api.model.BinPackingDataProvider;
 
