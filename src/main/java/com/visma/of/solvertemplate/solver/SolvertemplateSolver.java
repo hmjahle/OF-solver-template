@@ -5,6 +5,7 @@ import com.visma.of.api.model.BinPackingDataProvider;
 import com.visma.of.api.model.BinPackingResult;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverListener;
+import com.visma.of.solverapi.SolverProvider;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
 import com.visma.of.solvertemplate.solver.solvers.RandomSolution;
@@ -13,6 +14,9 @@ import org.json.simple.parser.ParseException;
 
 public class SolvertemplateSolver extends Solver {
 
+    static {
+        SolverProvider.registerSolver(new SolvertemplateSolver());
+    }
 
     @Override
     public void solve() throws JsonProcessingException, ParseException, Exception {
