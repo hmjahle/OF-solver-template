@@ -5,15 +5,18 @@ import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.Validator;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SolvertemplateValidator extends Validator {
 
     private BinPackingDataProvider dataProvider;
     private BinPackingModel model;
-    private String errorMessage;
+    private List<String> errorMessages;
 
     public SolvertemplateValidator() {
         super();
-        errorMessage = "";
+        errorMessages = new ArrayList<>();
     }
 
     @Override
@@ -22,8 +25,8 @@ public class SolvertemplateValidator extends Validator {
     }
 
     @Override
-    public String getErrorMessage() {
-        return errorMessage;
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
 
     private boolean validateBinPackingData(){
@@ -33,8 +36,7 @@ public class SolvertemplateValidator extends Validator {
             return crossValidate(model);
         } catch (Exception e) {
             e.printStackTrace();
-            errorMessage += "Could not load data into model. ";
-            errorMessage += "Error: " + e.getLocalizedMessage();
+            errorMessages.add("Could not load data into model. " + "Error: " + e.getLocalizedMessage());
             return false;
         }
     }
@@ -42,7 +44,7 @@ public class SolvertemplateValidator extends Validator {
     private boolean crossValidate(BinPackingModel model){
         for(Double weight : model.getWeights()){
             if(weight > model.getBinCapacity()){
-                errorMessage += "One of the weights was larger than the bin capacity";
+                errorMessages.add("One of the weights was larger than the bin capacity");
                 return false;
             }
         }
