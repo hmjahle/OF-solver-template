@@ -9,4 +9,5 @@ properties:
     items:
       $ref: "./ItemResult.yml"
   weight:
-    type: double
+    type: number
+    format: double

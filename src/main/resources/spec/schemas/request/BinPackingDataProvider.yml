@@ -8,6 +8,7 @@ properties:
   weights:
     type: array
     items:
-      type: double
+      type: number
+      format: double
   binCapacity:
     type: integer

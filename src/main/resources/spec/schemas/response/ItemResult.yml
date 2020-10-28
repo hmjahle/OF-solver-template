@@ -5,4 +5,5 @@ properties:
   itemNumber:
     type: integer
   weight:
-    type: double
+    type: number
+    format: double
