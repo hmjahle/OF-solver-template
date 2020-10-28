@@ -9,4 +9,5 @@ properties:
     items:
       $ref: "./BinResult.yml"
   totalPacked:
-    type: double
+    type: number
+    format: double
