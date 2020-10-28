@@ -9,12 +9,6 @@ requestBody:
     application/json:
       schema:
         $ref: "../schemas/request/BinPackingDataProvider.yml"
-x-amazon-apigateway-integration:
-  uri:
-    Fn::Sub: 'arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${StartSolver.Arn}/invocations'
-  passthroughBehavior: "when_no_match"
-  httpMethod: "POST"
-  type: "aws_proxy"
 responses:
   201:
     description: Solver started
