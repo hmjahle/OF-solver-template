@@ -3,6 +3,7 @@ package com.visma.of.solvertemplate.validator;
 import com.visma.of.api.model.BinPackingDataProvider;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.Validator;
+import com.visma.of.solverapi.ValidatorProvider;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 
 import java.util.ArrayList;
@@ -13,6 +14,10 @@ public class SolvertemplateValidator extends Validator {
     private BinPackingDataProvider dataProvider;
     private BinPackingModel model;
     private List<String> errorMessages;
+
+    static {
+        ValidatorProvider.registerValidator(new SolvertemplateValidator());
+    }
 
     public SolvertemplateValidator() {
         super();
