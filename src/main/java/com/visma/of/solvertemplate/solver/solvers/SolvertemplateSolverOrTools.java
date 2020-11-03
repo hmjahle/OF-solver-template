@@ -9,6 +9,9 @@ import com.visma.of.solverapi.SolverProvider;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import org.json.simple.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SolvertemplateSolverOrTools extends Solver {
 
 
@@ -37,7 +40,11 @@ public class SolvertemplateSolverOrTools extends Solver {
         }
         System.out.println(jsonSolution);
     }
-    
+
+    @Override
+    public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
+        return new HashMap<>();
+    }
 
 
 }

@@ -9,3 +9,4 @@ my-libs/
 docs/
 openapi.yaml
 src/main/resources/spec/schemas.yml
+*.log
