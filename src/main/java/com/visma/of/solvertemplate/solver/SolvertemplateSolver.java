@@ -6,11 +6,15 @@ import com.visma.of.api.model.BinPackingResult;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverListener;
 import com.visma.of.solverapi.SolverProvider;
+import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
 import com.visma.of.solvertemplate.solver.solvers.RandomSolution;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SolvertemplateSolver extends Solver {
 
@@ -31,5 +35,12 @@ public class SolvertemplateSolver extends Solver {
             listener.newBestSolutionFound(jsonSolution);
             listener.solverFinished();
         }
+    }
+
+    @Override
+    public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
+        return new HashMap<String, Boolean>(){{
+           this.put(Constants.OF_TEST_FLAG, true);
+        }};
     }
 }
