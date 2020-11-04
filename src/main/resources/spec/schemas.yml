@@ -1,0 +1,8 @@
+BinPackingDataProvider:
+  $ref: "./schemas/request/BinPackingDataProvider.yml"
+BinPackingResult:
+  $ref: "./schemas/response/BinPackingResult.yml"
+ItemResult:
+  $ref: "./schemas/response/ItemResult.yml"
+BinResult:
+  $ref: "./schemas/response/BinResult.yml"
