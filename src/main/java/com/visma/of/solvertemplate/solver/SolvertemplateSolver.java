@@ -32,7 +32,7 @@ public class SolvertemplateSolver extends Solver {
         BinPackingResult result = BinPackingSolution.generateResult(solution);
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
 
-        if (getFeatureFlags().get(Constants.OF_TEST_FLAG)){
+        if (getFeatureFlags() != null && getFeatureFlags().get(Constants.OF_TEST_FLAG)){
             System.out.println("Feature flag in solver SUCCESS");
         }
         
