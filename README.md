@@ -108,3 +108,10 @@ paths:
       $ref: "./paths/listTasks.yml"
 ```
 
+# Feature toggling guide
+This is a description of how to use feature toggles inside a solver. The solver's responsibility is only to define the name of the feature flag and the default value. The retrieval of the flag from launch darkly is handled by Solver Wrapper.
+
+In solver api there exists three different methods in relation to feature toggles:
+1. getSolverFeatureFlagDefaultValues() - this method is used by Solver Wrapper to retrieve the default values for the solver. It is very important that these are hardcoded into the Solver class in the Solver project
+2. setFeatureFlags() - this method is used by Solver Wrapper to set the feature flags after it has retrieved the values from Launch Darkly
+3. getFeatureFlags/() - this method is used for the Solver to retrieve the feature flag. Keep in mind that the solver should never request the methods getSolverFeatureFlagDefaultValues() and setFeatureFlags(), these should only be used by Solver Wrapper 
