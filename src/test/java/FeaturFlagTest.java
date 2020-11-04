@@ -19,7 +19,7 @@ public class FeaturFlagTest {
     public void test(){
         SolvertemplateSolver solvertemplateSolver = new SolvertemplateSolver();
         Map<String, Boolean> defaultFlags = solvertemplateSolver.getSolverFeatureFlagDefaultValues();
-        Assert.assertTrue(defaultFlags.get(Constants.OF_TEST_FLAG));
+        Assert.assertFalse(defaultFlags.get(Constants.OF_TEST_FLAG));
     }
 
 }
