@@ -31,6 +31,11 @@ public class SolvertemplateSolver extends Solver {
         BinPackingSolution solution = RandomSolution.generateBestFitSolution(model);
         BinPackingResult result = BinPackingSolution.generateResult(solution);
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
+
+        if (getFeatureFlags().get(Constants.OF_TEST_FLAG)){
+            System.out.println("Feature flag in solver SUCCESS");
+        }
+        
         for(SolverListener listener : getListeners()){
             listener.newBestSolutionFound(jsonSolution);
             listener.solverFinished();
