@@ -42,6 +42,7 @@ public class SolvertemplateSolver extends Solver {
         }
     }
 
+    
     @Override
     public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
         return new HashMap<String, Boolean>(){{
