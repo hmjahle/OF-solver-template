@@ -41,7 +41,6 @@ public class SolvertemplateSolver extends Solver {
             listener.solverFinished();
         }
     }
-
     
     @Override
     public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
