@@ -33,7 +33,7 @@ public class SolvertemplateSolver extends Solver {
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
 
         if (getFeatureFlags() != null && getFeatureFlags().get(Constants.OF_TEST_FLAG)){
-            System.out.println("Feature flag on in solver: SUCCESS");
+            System.out.println("Feature flag in solver: SUCCESS");
         }
         
         for(SolverListener listener : getListeners()){
