@@ -1,4 +1,3 @@
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.solver.SolvertemplateSolver;
 import org.junit.Assert;

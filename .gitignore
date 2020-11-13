@@ -2,7 +2,6 @@
 target/*
 .gradle/*
 build/
-gradle/
 distributions/
 my-libs/
 .DS_STORE

@@ -11,9 +11,7 @@ import java.util.List;
 
 public class SolvertemplateValidator extends Validator {
 
-    private BinPackingDataProvider dataProvider;
-    private BinPackingModel model;
-    private List<String> errorMessages;
+    private final List<String> errorMessages;
 
     static {
         ValidatorProvider.registerValidator(new SolvertemplateValidator());
@@ -34,10 +32,10 @@ public class SolvertemplateValidator extends Validator {
         return errorMessages;
     }
 
-    private boolean validateBinPackingData(){
+    private boolean validateBinPackingData() {
         try {
-            dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, super.getJsonPayload().toJSONString());
-            model = BinPackingModel.generateModelFromDataProvider(dataProvider);
+            BinPackingDataProvider dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, super.getJsonPayload().toJSONString());
+            BinPackingModel model = BinPackingModel.generateModelFromDataProvider(dataProvider);
             return crossValidate(model);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,9 +44,9 @@ public class SolvertemplateValidator extends Validator {
         }
     }
 
-    private boolean crossValidate(BinPackingModel model){
-        for(Double weight : model.getWeights()){
-            if(weight > model.getBinCapacity()){
+    private boolean crossValidate(BinPackingModel model) {
+        for (Double weight : model.getWeights()) {
+            if (weight > model.getBinCapacity()) {
                 errorMessages.add("One of the weights was larger than the bin capacity");
                 return false;
             }
