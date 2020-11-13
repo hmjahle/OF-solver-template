@@ -70,6 +70,18 @@ In order to publish to artifactory (this might require the ENV variables to be d
 ```bash
 gradle clean artifactoryPublish
 ``` 
+
+
+## Troubleshooting
+If IntelliJ fails to resolve classes in src and test, go to File -> Invalidate Cache / Restart.
+This should hopefully resolve the issue.
+Build the project again and make sure environement variables are set for JFROG_ACCESS_KEY and JFROG_USERNAME.
+If there are any issues with the dependencies, run
+```
+gradle clean --refresh-dependencies
+```
+and refresh in the Gradle tool window.
+
 # API Documentation Guide
 This guide describes how to document endpoints and payloads for a given solver project. 
 The outcome of the documentation process is the **openapi.yml** file, that will be hosted on AWS.

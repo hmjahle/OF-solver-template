@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Bin {
 
-    private int binNumber;
-    private List<Item> items;
+    private final int binNumber;
+    private final List<Item> items;
     private double remainingCapacity;
     private double weight;
 
@@ -17,7 +17,7 @@ public class Bin {
         weight = 0;
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item) {
         items.add(item);
         remainingCapacity -= item.getWeight();
         weight += item.getWeight();
@@ -25,10 +25,6 @@ public class Bin {
 
     public List<Item> getItems() {
         return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
     }
 
     public int getBinNumber() {

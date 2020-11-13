@@ -36,10 +36,6 @@ public class BinPackingSolution {
         return weight;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
     public void addItem(int itemNumber, int binNumber){
         bins.get(binNumber).addItem(items.get(itemNumber));
         weight += items.get(itemNumber).getWeight();

@@ -20,7 +20,7 @@ public class SolvertemplateSolverOrTools extends Solver {
         System.out.println("Path is: " + System.getProperty("java.library.path"));
         System.loadLibrary("jniortools");
     }
-    
+
     @Override
     public void solve() throws Exception {
         JSONObject jsonObject = getJsonPayload();
@@ -35,7 +35,7 @@ public class SolvertemplateSolverOrTools extends Solver {
         }
         BinPackingResult solution = MipSolver.runMipSolver(solver, model.getNumItems(), model.getNumBins(), model.getWeights(), model.getBinCapacity());
         JSONObject jsonSolution = Solver.objectToJsonObject(solution);
-        for(SolverListener listener : getListeners()){
+        for (SolverListener listener : getListeners()) {
             listener.newBestSolutionFound(jsonSolution);
         }
         System.out.println(jsonSolution);
