@@ -29,10 +29,6 @@ public class SolvertemplateSolverOrTools extends Solver {
 
         // Create the linear solver with the SCIP backend.
         MPSolver solver = new MPSolver("CBC", MPSolver.OptimizationProblemType.CBC_MIXED_INTEGER_PROGRAMMING);
-        if (solver == null) {
-            System.out.println("Could not create solver CBC");
-            return;
-        }
         BinPackingResult solution = MipSolver.runMipSolver(solver, model.getNumItems(), model.getNumBins(), model.getWeights(), model.getBinCapacity());
         JSONObject jsonSolution = Solver.objectToJsonObject(solution);
         for (SolverListener listener : getListeners()) {

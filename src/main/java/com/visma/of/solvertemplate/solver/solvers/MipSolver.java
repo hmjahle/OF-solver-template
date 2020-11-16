@@ -13,6 +13,9 @@ import java.util.List;
 
 public class MipSolver {
 
+    private MipSolver(){
+    }
+
     public static BinPackingResult runMipSolver(MPSolver solver, int numItems, int numBins, Double[] weights, int binCapacity){
         MPVariable[][] x = new MPVariable[numItems][numBins];
         for (int i = 0; i < numItems; ++i) {

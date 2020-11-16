@@ -6,6 +6,13 @@ If solver is not using or-tools, skip to section Environmental variables. Rememb
 
 Copy the whole project. If you are not going to use or-tools, do not copy or-tools-centos and or-tools-osx
 
+###Naming rules for classes and packages
+
+- The solver class for a given solver project should be named with upper case for the first letter of the SOLVER_ARTIFACT_ID + «Solver», e.g. SolvertemplateSolver
+- Similarly for validator class: Solver_artifact_id + «Validator», e.g. SolvertemplateValidator
+- SolvertemplateSolver should be in package com/visma/of/solvertemplate/solver/
+- SolvertemplateValidator should be in package com/visma/of/solvertemplate/validator/
+
 ## Installation and OR-Tools
 
 Gradle 5.6 needs to be installed to run or-tools locally. SDK is recommended to install specific version of Gradle. SDK installation for OSX can be found [here](https://sdkman.io/install). 

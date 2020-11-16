@@ -6,13 +6,16 @@ import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
 import com.visma.of.solvertemplate.solver.solution.Item;
 
 
-public class RandomSolution {
+public class HeuristicSolver {
+
+    private HeuristicSolver(){
+    }
 
     public static BinPackingSolution generateBestFitSolution(BinPackingModel model){
         BinPackingSolution solution = new BinPackingSolution(model);
         int res = 0;
         for (Item item : solution.getItems()) {
-            double min = model.getBinCapacity() + 1;
+            double min = model.getBinCapacity() + 1.0 ;
             int bi = 0;
 
             for (int j = 0; j < res; j++)

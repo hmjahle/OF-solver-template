@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visma.of.solvertemplate.solver.SolvertemplateSolver;
 import com.visma.of.solvertemplate.solver.solvers.SolvertemplateSolverOrTools;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
@@ -19,6 +20,7 @@ public class TestSolver {
         String jsonString = payload.toString();
         JSONObject model = mapper.readValue(jsonString, JSONObject.class);
         solvertemplateSolver.initialize(model);
+        Assert.assertNotNull(solvertemplateSolver.getJsonPayload());
         solvertemplateSolver.solve();
     }
 
@@ -31,6 +33,7 @@ public class TestSolver {
         String jsonString = payload.toString();
         JSONObject model = mapper.readValue(jsonString, JSONObject.class);
         solvertemplateSolver.initialize(model);
+        Assert.assertNotNull(solvertemplateSolver.getJsonPayload());
         solvertemplateSolver.solve();
     }
 
