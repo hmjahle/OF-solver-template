@@ -8,7 +8,7 @@ import com.visma.of.solverapi.SolverProvider;
 import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
-import com.visma.of.solvertemplate.solver.solvers.RandomSolution;
+import com.visma.of.solvertemplate.solver.solvers.HeuristicSolver;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -26,7 +26,7 @@ public class SolvertemplateSolver extends Solver {
         BinPackingDataProvider dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, jsonObject.toJSONString());
         BinPackingModel model = BinPackingModel.generateModelFromDataProvider(dataProvider);
 
-        BinPackingSolution solution = RandomSolution.generateBestFitSolution(model);
+        BinPackingSolution solution = HeuristicSolver.generateBestFitSolution(model);
         BinPackingResult result = BinPackingSolution.generateResult(solution);
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
 
@@ -40,11 +40,10 @@ public class SolvertemplateSolver extends Solver {
         }
     }
 
-
     @Override
     public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
-        return new HashMap<String, Boolean>(){{
-           this.put(Constants.OF_TEST_FLAG, false);
-        }};
+        Map<String, Boolean> featureFlags = new HashMap<>();
+        featureFlags.put(Constants.OF_TEST_FLAG, false);
+        return featureFlags;
     }
 }
