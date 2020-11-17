@@ -38,7 +38,6 @@ public class SolvertemplateValidator extends Validator {
             BinPackingModel model = BinPackingModel.generateModelFromDataProvider(dataProvider);
             return crossValidate(model);
         } catch (Exception e) {
-            e.printStackTrace();
             errorMessages.add("Could not load data into model. " + "Error: " + e.getLocalizedMessage());
             return false;
         }
