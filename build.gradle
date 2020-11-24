@@ -25,21 +25,6 @@ plugins {
     id 'jacoco'
 }
 
-// dependency versions
-ext {
-    solver_api_version = "1.3"
-    swagger_annotations_version = "1.5.22"
-    jackson_version = "2.9.9"
-    jackson_databind_version = "2.9.9"
-    spring_web_version = "4.3.9.RELEASE"
-    jodatime_version = "2.9.9"
-    junit_version = "4.12"
-    validation_version = "2.0.1.Final"
-    findbugs_version = "3.0.2"
-    javax_annotation_version = "1.3.2"
-    json_version="20171018"
-}
-
 
 group 'com.visma.of'
 mainClassName = 'Main'
@@ -84,6 +69,21 @@ repositories {
 
 boolean shouldUseOrTools() {
     return file("or-tools-ubuntu").exists() && file("or-tools-osx").exists()
+}
+
+// dependency versions
+ext {
+    solver_api_version = "1.10"
+    swagger_annotations_version = "1.5.22"
+    jackson_version = "2.9.9"
+    jackson_databind_version = "2.9.9"
+    spring_web_version = "4.3.9.RELEASE"
+    jodatime_version = "2.9.9"
+    junit_version = "4.12"
+    validation_version = "2.0.1.Final"
+    findbugs_version = "3.0.2"
+    javax_annotation_version = "1.3.2"
+    json_version="20171018"
 }
 
 dependencies {
