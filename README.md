@@ -104,7 +104,8 @@ The **openapi-spec.yml** file defines the outcome of the bundling, and should on
 
 ### Adding documentation for a schema (DTO)
 When adding a new schema, simply add **_fileName_.yml** to one of the folders in the *schemas* folder, and write the documentation in the file. 
-NOTE: do not add any other folders than the _response_ and _request_ folder. 
+NOTE: do not add any other folders than the _response_ and _request_ folder. Also, it is important that there is no new line the file 
+openapi-spec.yml between the end of the description and the paths-part.
 
 ### Adding documentation for an endpoint
 1. Add **_endpointName_.yml** to the *paths* folder and write documentation for the endpoint in that file.

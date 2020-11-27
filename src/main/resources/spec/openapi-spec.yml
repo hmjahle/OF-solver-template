@@ -1,13 +1,12 @@
 openapi: 3.0.2
-info:
-  title: Example API
-  description: This is the example API
-  version: '0.1'
-
 tags:
   - name: Example
     description: Operations with the example API
-
+info:
+  title: Example API
+  version: '0.1'
+  description: >
+    This is the example API
 paths:
   /start_solver:
     post:
