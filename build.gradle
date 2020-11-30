@@ -29,6 +29,8 @@ plugins {
 group 'com.visma.of'
 mainClassName = 'Main'
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 
 task incrementVersion {
     doLast{
@@ -262,6 +264,11 @@ artifactory {
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -269,6 +276,9 @@ publishing {
             artifactId = "solvertemplate"
             version = "${version}"
             from components.java
+            artifact (sourcesJar) {
+                classifier = 'sources'
+            }
         }
     }
 }
