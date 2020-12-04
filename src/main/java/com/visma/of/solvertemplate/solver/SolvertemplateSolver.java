@@ -7,6 +7,7 @@ import com.visma.of.solverapi.SolverListener;
 import com.visma.of.solverapi.SolverProvider;
 import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
+import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
 import com.visma.of.solvertemplate.solver.solvers.HeuristicSolver;
 import org.json.simple.JSONObject;
@@ -24,7 +25,7 @@ public class SolvertemplateSolver extends Solver {
     public void solve() throws Exception {
         JSONObject jsonObject = getJsonPayload();
         BinPackingDataProvider dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, jsonObject.toJSONString());
-        BinPackingModel model = BinPackingModel.generateModelFromDataProvider(dataProvider);
+        BinPackingModel model = ModelFactory.generateModelFromDataProvider(dataProvider);
 
         BinPackingSolution solution = HeuristicSolver.generateBestFitSolution(model);
         BinPackingResult result = BinPackingSolution.generateResult(solution);

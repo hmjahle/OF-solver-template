@@ -31,12 +31,4 @@ public class BinPackingModel {
     public int getBinCapacity() {
         return binCapacity;
     }
-
-    public static BinPackingModel generateModelFromDataProvider(BinPackingDataProvider dataProvider){
-        Double[] weights = dataProvider.getWeights().toArray(new Double[0]);
-        int numItems = weights.length;
-        int numBins = weights.length;
-        int binCapacity = dataProvider.getBinCapacity();
-        return new BinPackingModel(weights, numItems, numBins, binCapacity);
-    }
 }

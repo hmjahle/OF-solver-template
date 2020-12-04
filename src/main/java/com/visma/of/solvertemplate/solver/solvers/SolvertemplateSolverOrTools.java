@@ -7,6 +7,7 @@ import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverListener;
 import com.visma.of.solverapi.SolverProvider;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
+import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import org.json.simple.JSONObject;
 
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class SolvertemplateSolverOrTools extends Solver {
     public void solve() throws Exception {
         JSONObject jsonObject = getJsonPayload();
         BinPackingDataProvider dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, jsonObject.toJSONString());
-        BinPackingModel model = BinPackingModel.generateModelFromDataProvider(dataProvider);
+        BinPackingModel model = ModelFactory.generateModelFromDataProvider(dataProvider);
 
         // Create the linear solver with the SCIP backend.
         MPSolver solver = new MPSolver("CBC", MPSolver.OptimizationProblemType.CBC_MIXED_INTEGER_PROGRAMMING);
@@ -34,7 +35,6 @@ public class SolvertemplateSolverOrTools extends Solver {
         for (SolverListener listener : getListeners()) {
             listener.newBestSolutionFound(jsonSolution);
         }
-        System.out.println(jsonSolution);
     }
 
     @Override
