@@ -10,7 +10,7 @@ requestBody:
       schema:
         $ref: "../schemas/request/BinPackingDataProvider.yml"
 responses:
-  201:
+  202:
     description: Solver started
   400:
     description: Data validation error
