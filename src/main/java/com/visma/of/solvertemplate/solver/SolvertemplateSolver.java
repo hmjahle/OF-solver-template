@@ -37,7 +37,6 @@ public class SolvertemplateSolver extends Solver {
         
         for(SolverListener listener : getListeners()){
             listener.newBestSolutionFound(jsonSolution);
-            listener.solverFinished();
         }
     }
 
