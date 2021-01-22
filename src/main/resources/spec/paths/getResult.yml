@@ -2,6 +2,13 @@ summary: Returns a solution
 tags:
   - Example
 operationId: getResult
+parameters:
+  - name: job_id
+    in: path
+    description: ID of job to return result for
+    required: true
+    schema:
+      type: string
 responses:
   200:
     description: Generated solution

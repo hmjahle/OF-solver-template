@@ -2,6 +2,9 @@ summary: Starts the solver
 tags:
   - Example
 operationId: startSolver
+responses:
+  000:
+    description: This is used for having a valid open api spec. The response for start solver is specified in solver service
 requestBody:
   description: Lorum Ipsum
   required: true
@@ -9,10 +12,3 @@ requestBody:
     application/json:
       schema:
         $ref: "../schemas/request/BinPackingDataProvider.yml"
-responses:
-  202:
-    description: Solver started
-  400:
-    description: Data validation error
-  500:
-    description: Internal server error

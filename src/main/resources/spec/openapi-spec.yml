@@ -8,10 +8,10 @@ info:
   description: >
     This is the example API
 paths:
-  /start_solver:
+  /start:
     post:
       $ref: "./paths/startSolver.yml"
-  /result:
+  /result/{job_id}:
     get:
       $ref: "./paths/getResult.yml"
 
