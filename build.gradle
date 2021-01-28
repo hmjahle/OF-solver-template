@@ -75,7 +75,7 @@ boolean shouldUseOrTools() {
 
 // dependency versions
 ext {
-    solver_api_version = "1.10"
+    solver_api_version = "1.12"
     swagger_annotations_version = "1.5.22"
     jackson_version = "2.9.9"
     jackson_databind_version = "2.9.9"
@@ -157,7 +157,7 @@ static List<String> fetchSchemaSpecifications() {
     File schemasRequest = new File('src/main/resources/spec/schemas/request')
     schemasRequest.eachFile {
         String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
-        if (fileName != "") {
+        if ("${it.name}".split("\\.")[1] != "json" && fileName != "") {
             schemaSpecification.add(fileName + ":")
             schemaSpecification.add("  \$ref: \"./schemas/request/" + fileName + ".yml\"")
         }
@@ -191,10 +191,15 @@ task bundleOpenAPI(type: Exec) {
     commandLine 'sh', 'bundleOpenAPI.sh'
 }
 
+task convertToJson(type: Exec) {
+    // This function runs a script to convert Request.yml and openapi.yml to json
+    commandLine 'sh', 'convertToJson.sh'
+}
+
 /* java client configuration */
 task buildJavaClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, dependsOn: ['bundleOpenAPI']) {
     generatorName = "java"
-    inputSpec = "$rootDir/openapi.yaml".toString()
+    inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
     outputDir = "$buildDir/java-client".toString()
     groupId = "$project.group"
     id = "$project.name-java-client"

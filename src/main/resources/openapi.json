@@ -1,0 +1,167 @@
+{
+    "openapi": "3.0.2",
+    "tags": [
+        {
+            "name": "Example",
+            "description": "Operations with the example API"
+        }
+    ],
+    "info": {
+        "title": "Example API",
+        "version": "0.1",
+        "description": "This is the example API\n"
+    },
+    "paths": {
+        "/start": {
+            "post": {
+                "summary": "Starts the solver",
+                "tags": [
+                    "Example"
+                ],
+                "operationId": "startSolver",
+                "responses": {
+                    "default": {
+                        "description": "This is used for having a valid open api spec. The response for start solver is specified in solver service"
+                    }
+                },
+                "requestBody": {
+                    "description": "Lorum Ipsum",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Request"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/result/{job_id}": {
+            "get": {
+                "summary": "Returns a solution",
+                "tags": [
+                    "Example"
+                ],
+                "operationId": "getResult",
+                "parameters": [
+                    {
+                        "name": "job_id",
+                        "in": "path",
+                        "description": "ID of job to return result for",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Generated solution",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/BinPackingResult"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Result not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Request": {
+                "type": "object",
+                "title": "Instance for Bin Packing Model",
+                "description": "Data model for the bin packing problem solver",
+                "required": [
+                    "weights",
+                    "binCapacity"
+                ],
+                "properties": {
+                    "weights": {
+                        "type": "array",
+                        "items": {
+                            "type": "number",
+                            "format": "double"
+                        }
+                    },
+                    "binCapacity": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "BinPackingResult": {
+                "type": "object",
+                "required": [
+                    "bins"
+                ],
+                "properties": {
+                    "numberOfBins": {
+                        "type": "integer"
+                    },
+                    "bins": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BinResult"
+                        }
+                    },
+                    "totalPacked": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "ItemResult": {
+                "type": "object",
+                "required": [
+                    "itemNumber"
+                ],
+                "properties": {
+                    "itemNumber": {
+                        "type": "integer"
+                    },
+                    "weight": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "BinResult": {
+                "type": "object",
+                "required": [
+                    "binNumber"
+                ],
+                "properties": {
+                    "binNumber": {
+                        "type": "integer"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ItemResult"
+                        }
+                    },
+                    "weight": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            }
+        }
+    }
+}

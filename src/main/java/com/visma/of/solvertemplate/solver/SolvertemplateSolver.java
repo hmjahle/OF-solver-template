@@ -1,6 +1,6 @@
 package com.visma.of.solvertemplate.solver;
 
-import com.visma.of.api.model.BinPackingDataProvider;
+import com.visma.of.api.model.Request;
 import com.visma.of.api.model.BinPackingResult;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverListener;
@@ -24,7 +24,7 @@ public class SolvertemplateSolver extends Solver {
     @Override
     public void solve() throws Exception {
         JSONObject jsonObject = getJsonPayload();
-        BinPackingDataProvider dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, jsonObject.toJSONString());
+        Request dataProvider = Solver.readFromJsonObjectMapper(Request.class, jsonObject.toJSONString());
         BinPackingModel model = ModelFactory.generateModelFromDataProvider(dataProvider);
 
         BinPackingSolution solution = HeuristicSolver.generateBestFitSolution(model);

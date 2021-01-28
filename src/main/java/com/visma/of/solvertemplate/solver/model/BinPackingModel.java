@@ -1,7 +1,5 @@
 package com.visma.of.solvertemplate.solver.model;
 
-import com.visma.of.api.model.BinPackingDataProvider;
-
 public class BinPackingModel {
 
     private final Double[] weights;

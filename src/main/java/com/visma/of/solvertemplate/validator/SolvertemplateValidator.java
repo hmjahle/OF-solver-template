@@ -1,18 +1,17 @@
 package com.visma.of.solvertemplate.validator;
 
-import com.visma.of.api.model.BinPackingDataProvider;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import com.visma.of.api.model.Request;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.Validator;
 import com.visma.of.solverapi.ValidatorProvider;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.model.ModelFactory;
+import org.json.simple.parser.ParseException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class SolvertemplateValidator extends Validator {
-
-    private final List<String> errorMessages;
 
     static {
         ValidatorProvider.registerValidator(new SolvertemplateValidator());
@@ -20,26 +19,20 @@ public class SolvertemplateValidator extends Validator {
 
     public SolvertemplateValidator() {
         super();
-        errorMessages = new ArrayList<>();
     }
 
     @Override
-    public boolean validate() {
-        return validateBinPackingData();
-    }
-
-    @Override
-    public List<String> getErrorMessages() {
-        return errorMessages;
+    public boolean validate() throws ParseException, IOException, ProcessingException {
+        return validatePayload() && validateBinPackingData();
     }
 
     private boolean validateBinPackingData() {
         try {
-            BinPackingDataProvider dataProvider = Solver.readFromJsonObjectMapper(BinPackingDataProvider.class, super.getJsonPayload().toJSONString());
+            Request dataProvider = Solver.readFromJsonObjectMapper(Request.class, super.getJsonPayload().toJSONString());
             BinPackingModel model = ModelFactory.generateModelFromDataProvider(dataProvider);
             return crossValidate(model);
         } catch (Exception e) {
-            errorMessages.add("Could not load data into model. " + "Error: " + e.getLocalizedMessage());
+            super.addErrorMessages("Could not load data into model. " + "Error: " + e.getLocalizedMessage());
             return false;
         }
     }
@@ -47,7 +40,7 @@ public class SolvertemplateValidator extends Validator {
     private boolean crossValidate(BinPackingModel model) {
         for (Double weight : model.getWeights()) {
             if (weight > model.getBinCapacity()) {
-                errorMessages.add("One of the weights was larger than the bin capacity");
+                super.addErrorMessages("One of the weights was larger than the bin capacity");
                 return false;
             }
         }

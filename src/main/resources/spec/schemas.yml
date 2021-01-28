@@ -1,5 +1,5 @@
-BinPackingDataProvider:
-  $ref: "./schemas/request/BinPackingDataProvider.yml"
+Request:
+  $ref: "./schemas/request/Request.yml"
 BinPackingResult:
   $ref: "./schemas/response/BinPackingResult.yml"
 ItemResult:
