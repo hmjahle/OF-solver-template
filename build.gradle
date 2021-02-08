@@ -75,7 +75,7 @@ boolean shouldUseOrTools() {
 
 // dependency versions
 ext {
-    solver_api_version = "1.12"
+    solver_api_version = "9.0"
     swagger_annotations_version = "1.5.22"
     jackson_version = "2.9.9"
     jackson_databind_version = "2.9.9"
@@ -108,6 +108,7 @@ dependencies {
             "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version",
             "javax.annotation:javax.annotation-api:$javax_annotation_version",
             "javax.validation:validation-api:$validation_version",
+            'com.googlecode.json-simple:json-simple:1.1.1',
             "org.json:json:$json_version"
 
     )

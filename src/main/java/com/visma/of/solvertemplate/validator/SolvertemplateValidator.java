@@ -13,6 +13,11 @@ import java.io.IOException;
 
 public class SolvertemplateValidator extends Validator {
 
+    private static final String openapiPath = "build/resources/main/openapi.json";
+    private static final String requestPayloadPath = "build/resources/main/spec/schemas/request/Request.json";
+    private static final String requestValidationSchemaPath = "build/resources/main/requestValidationSchema.json";
+
+
     static {
         ValidatorProvider.registerValidator(new SolvertemplateValidator());
     }
@@ -23,7 +28,7 @@ public class SolvertemplateValidator extends Validator {
 
     @Override
     public boolean validate() throws ParseException, IOException, ProcessingException {
-        return validatePayload() && validateBinPackingData();
+        return validatePayload(openapiPath, requestPayloadPath, requestValidationSchemaPath) && validateBinPackingData();
     }
 
     private boolean validateBinPackingData() {
