@@ -75,7 +75,7 @@ boolean shouldUseOrTools() {
 
 // dependency versions
 ext {
-    solver_api_version = "9.0"
+    solver_api_version = "22.0"
     swagger_annotations_version = "1.5.22"
     jackson_version = "2.9.9"
     jackson_databind_version = "2.9.9"
@@ -289,6 +289,11 @@ publishing {
     }
 }
 
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+}
 
 artifactoryPublish {
     dependsOn jar
