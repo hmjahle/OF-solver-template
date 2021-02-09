@@ -5,6 +5,7 @@ import com.visma.of.api.model.Request;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.Validator;
 import com.visma.of.solverapi.ValidatorProvider;
+import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import org.json.simple.parser.ParseException;
@@ -13,8 +14,8 @@ import java.io.IOException;
 
 public class SolvertemplateValidator extends Validator {
 
-    private static final String openapiPath = SolvertemplateValidator.class.getResource("/openapi.json").getPath();
-    private static final String requestPayloadPath = SolvertemplateValidator.class.getResource("/spec/schemas/request/Request.json").getPath();
+    private static final String openapiPath = Constants.class.getResource("/openapi.json").getPath();
+    private static final String requestPayloadPath = Constants.class.getResource("/spec/schemas/request/Request.json").getPath();
 
     static {
         ValidatorProvider.registerValidator(new SolvertemplateValidator());
