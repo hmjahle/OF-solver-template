@@ -14,8 +14,6 @@ import java.io.IOException;
 
 public class SolvertemplateValidator extends Validator {
 
-    private static final String openapiPath = Constants.class.getResource("/openapi.json").getPath();
-    private static final String requestPayloadPath = Constants.class.getResource("/spec/schemas/request/Request.json").getPath();
 
     static {
         ValidatorProvider.registerValidator(new SolvertemplateValidator());
@@ -27,7 +25,7 @@ public class SolvertemplateValidator extends Validator {
 
     @Override
     public boolean validate() throws ParseException, IOException, ProcessingException {
-        return validatePayload(openapiPath, requestPayloadPath) && validateBinPackingData();
+        return validatePayload(Constants.openapiPath, Constants.requestPayloadPath) && validateBinPackingData();
     }
 
     private boolean validateBinPackingData() {
