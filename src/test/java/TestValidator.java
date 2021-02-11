@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.validator.SolvertemplateValidator;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
@@ -10,10 +11,12 @@ import java.io.IOException;
 
 public class TestValidator {
 
+    private static String openApiPath = Constants.class.getResource("/openapi.json").getPath();
+
     @Test
     public void testValidatorInvalid() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingDataInvalid.json");
-        boolean valid = validator.validate();
+        boolean valid = validator.validate(openApiPath);
         System.out.println(validator.getErrorMessages());
         Assert.assertFalse(valid);
     }
@@ -21,7 +24,7 @@ public class TestValidator {
     @Test
     public void testValidatorInvalidMissingField() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingDataInvalidMissingField.json");
-        boolean valid = validator.validate();
+        boolean valid = validator.validate(openApiPath);
         System.out.println(validator.getErrorMessages());
         Assert.assertFalse(valid);
     }
@@ -29,7 +32,7 @@ public class TestValidator {
     @Test
     public void testValidatorInvalidWrongField() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingDataInvalidWrongField.json");
-        boolean valid = validator.validate();
+        boolean valid = validator.validate(openApiPath);
         System.out.println(validator.getErrorMessages());
         Assert.assertFalse(valid);
     }
@@ -37,7 +40,7 @@ public class TestValidator {
     @Test
     public void testValidatorValid() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingData.json");
-        boolean valid = validator.validate();
+        boolean valid = validator.validate(openApiPath);
         System.out.println(validator.getErrorMessages());
         Assert.assertTrue(valid);
     }
