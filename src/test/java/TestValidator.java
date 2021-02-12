@@ -11,16 +11,18 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class TestValidator {
 
-    private static String openApiPath = Constants.class.getResource("/openapi.json").getPath();
-    private static Object openapiObject;
+    private static JSONObject openapiObject;
 
     static {
         try {
-            openapiObject = new JSONParser().parse(new FileReader(openApiPath));
-        } catch (IOException | ParseException e) {
+            InputStream input = TestValidator.class.getResourceAsStream("/openapi.json");
+            ObjectMapper mapper = new ObjectMapper();
+            openapiObject = mapper.readValue(input, JSONObject.class);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
