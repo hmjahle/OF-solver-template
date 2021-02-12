@@ -15,15 +15,15 @@ import java.io.InputStream;
 
 public class TestValidator {
 
-    private static JSONObject openapiObject;
-    private static JSONObject requestObject;
+    private static final JSONObject openapiObject;
+    private static final JSONObject requestObject;
 
     static {
-        openapiObject = initalizeJsonObjectFromFile("/openapi.json");
-        requestObject = initalizeJsonObjectFromFile("/spec/schemas/request/Request.json");
+        openapiObject = initializeJsonObjectFromFile("/openapi.json");
+        requestObject = initializeJsonObjectFromFile("/spec/schemas/request/Request.json");
     }
 
-    private static JSONObject initalizeJsonObjectFromFile(String path){
+    private static JSONObject initializeJsonObjectFromFile(String path){
         try {
             InputStream input = TestValidator.class.getResourceAsStream(path);
             ObjectMapper mapper = new ObjectMapper();
