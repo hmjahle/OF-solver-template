@@ -16,22 +16,30 @@ import java.io.InputStream;
 public class TestValidator {
 
     private static JSONObject openapiObject;
+    private static JSONObject requestObject;
 
     static {
+        openapiObject = initalizeJsonObjectFromFile("/openapi.json");
+        requestObject = initalizeJsonObjectFromFile("/spec/schemas/request/Request.json");
+    }
+
+    private static JSONObject initalizeJsonObjectFromFile(String path){
         try {
-            InputStream input = TestValidator.class.getResourceAsStream("/openapi.json");
+            InputStream input = TestValidator.class.getResourceAsStream(path);
             ObjectMapper mapper = new ObjectMapper();
-            openapiObject = mapper.readValue(input, JSONObject.class);
+            return mapper.readValue(input, JSONObject.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
+
     }
 
 
     @Test
     public void testValidatorInvalid() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingDataInvalid.json");
-        boolean valid = validator.validate(openapiObject);
+        boolean valid = validator.validate(openapiObject, requestObject);
         System.out.println(validator.getErrorMessages());
         Assert.assertFalse(valid);
     }
@@ -39,7 +47,7 @@ public class TestValidator {
     @Test
     public void testValidatorInvalidMissingField() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingDataInvalidMissingField.json");
-        boolean valid = validator.validate(openapiObject);
+        boolean valid = validator.validate(openapiObject, requestObject);
         System.out.println(validator.getErrorMessages());
         Assert.assertFalse(valid);
     }
@@ -47,7 +55,7 @@ public class TestValidator {
     @Test
     public void testValidatorInvalidWrongField() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingDataInvalidWrongField.json");
-        boolean valid = validator.validate(openapiObject);
+        boolean valid = validator.validate(openapiObject, requestObject);
         System.out.println(validator.getErrorMessages());
         Assert.assertFalse(valid);
     }
@@ -55,7 +63,7 @@ public class TestValidator {
     @Test
     public void testValidatorValid() throws Exception {
         SolvertemplateValidator validator = setupTestValidator("src/test/resources/com.visma.of.solvertemplate.solver/binPackingData.json");
-        boolean valid = validator.validate(openapiObject);
+        boolean valid = validator.validate(openapiObject, requestObject);
         System.out.println(validator.getErrorMessages());
         Assert.assertTrue(valid);
     }
