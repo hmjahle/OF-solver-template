@@ -26,10 +26,10 @@ public class SolvertemplateValidator extends Validator {
     }
 
     @Override
-    public boolean validate(String openApiPath) throws ParseException, IOException, ProcessingException {
+    public boolean validate(Object openApiObject) throws ParseException, IOException, ProcessingException {
         Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("Path before: {}", openApiPath);
-        return validatePayload(openApiPath, Constants.requestPayloadPath) && validateBinPackingData();
+        logger.info("Object before: {}", openApiObject);
+        return validatePayload(openApiObject, Constants.requestPayloadPath) && validateBinPackingData();
     }
 
     private boolean validateBinPackingData() {
