@@ -8,8 +8,6 @@ import com.visma.of.solverapi.ValidatorProvider;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import org.json.simple.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -26,8 +24,6 @@ public class SolvertemplateValidator extends Validator {
 
     @Override
     public boolean validate(JSONObject openApiObject, JSONObject requestObject) throws IOException, ProcessingException {
-        Logger logger = LoggerFactory.getLogger(getClass());
-        logger.info("Object before: {}", openApiObject);
         return validatePayload(openApiObject, requestObject) && validateBinPackingData();
     }
 
