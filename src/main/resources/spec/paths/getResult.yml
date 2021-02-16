@@ -9,6 +9,13 @@ parameters:
     required: true
     schema:
       type: string
+  - name: user_id
+    in: header
+    description: ID of the user requesting the result
+    required: true
+    schema:
+      type: string
+
 responses:
   200:
     description: Generated solution
