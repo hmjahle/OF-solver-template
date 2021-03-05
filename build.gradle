@@ -75,17 +75,12 @@ boolean shouldUseOrTools() {
 
 // dependency versions
 ext {
-    solver_api_version = "1.14"
+    solver_api_version = "1.20"
     swagger_annotations_version = "1.5.22"
-    jackson_version = "2.9.9"
-    jackson_databind_version = "2.9.9"
-    spring_web_version = "4.3.9.RELEASE"
-    jodatime_version = "2.9.9"
-    junit_version = "4.12"
+    jackson_version = "2.11.4"
+    jackson_databind_version = "2.11.4"
     validation_version = "2.0.1.Final"
-    findbugs_version = "3.0.2"
     javax_annotation_version = "1.3.2"
-    json_version="20171018"
 }
 
 dependencies {
@@ -99,17 +94,11 @@ dependencies {
     compile(
             "com.visma.of:solver-api:$solver_api_version",
             "io.swagger:swagger-annotations:$swagger_annotations_version",
-            "com.google.code.findbugs:jsr305:$findbugs_version",
-            "org.springframework:spring-web:$spring_web_version",
             "com.fasterxml.jackson.core:jackson-core:$jackson_version",
             "com.fasterxml.jackson.core:jackson-annotations:$jackson_version",
             "com.fasterxml.jackson.core:jackson-databind:$jackson_databind_version",
-            "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jackson_version",
-            "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version",
             "javax.annotation:javax.annotation-api:$javax_annotation_version",
             "javax.validation:validation-api:$validation_version",
-            'com.googlecode.json-simple:json-simple:1.1.1',
-            "org.json:json:$json_version"
 
     )
     testCompile group: 'junit', name: 'junit', version: '4.13'
@@ -192,13 +181,13 @@ task bundleOpenAPI(type: Exec) {
     commandLine 'sh', 'bundleOpenAPI.sh'
 }
 
-task convertToJson(type: Exec) {
+task convertToJson(type: Exec, dependsOn: ['bundleOpenAPI']) {
     // This function runs a script to convert Request.yml and openapi.yml to json
     commandLine 'sh', 'convertToJson.sh'
 }
 
 /* java client configuration */
-task buildJavaClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, dependsOn: ['bundleOpenAPI']) {
+task buildJavaClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, dependsOn: ['convertToJson']) {
     generatorName = "java"
     inputSpec = "$rootDir/src/main/resources/openapi.yaml".toString()
     outputDir = "$buildDir/java-client".toString()

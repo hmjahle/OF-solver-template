@@ -33,7 +33,7 @@ public class SolvertemplateValidator extends Validator {
             BinPackingModel model = ModelFactory.generateModelFromDataProvider(dataProvider);
             return crossValidate(model);
         } catch (Exception e) {
-            super.addErrorMessages("Could not load data into model. " + "Error: " + e.getLocalizedMessage());
+            super.addErrorMessage("Could not load data into model. " + "Error: " + e.getLocalizedMessage());
             return false;
         }
     }
@@ -41,7 +41,7 @@ public class SolvertemplateValidator extends Validator {
     private boolean crossValidate(BinPackingModel model) {
         for (Double weight : model.getWeights()) {
             if (weight > model.getBinCapacity()) {
-                super.addErrorMessages("One of the weights was larger than the bin capacity");
+                super.addErrorMessage("One of the weights was larger than the bin capacity");
                 return false;
             }
         }
