@@ -17,16 +17,21 @@ import java.util.Map;
 
 public class SolvertemplateSolver extends Solver {
 
+    private BinPackingModel model;
+
     static {
         SolverProvider.registerSolver(new SolvertemplateSolver());
     }
 
     @Override
-    public void solve() throws Exception {
+    public void initializeSolver() throws Exception {
         JSONObject jsonObject = getJsonPayload();
         Request dataProvider = Solver.readFromJsonObjectMapper(Request.class, jsonObject.toJSONString());
-        BinPackingModel model = ModelFactory.generateModelFromDataProvider(dataProvider);
+        model = ModelFactory.generateModelFromDataProvider(dataProvider);
+    }
 
+    @Override
+    public void solve() throws Exception {
         BinPackingSolution solution = HeuristicSolver.generateBestFitSolution(model);
         BinPackingResult result = BinPackingSolution.generateResult(solution);
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
@@ -38,6 +43,13 @@ public class SolvertemplateSolver extends Solver {
         for(SolverListener listener : getListeners()){
             listener.newBestSolutionFound(jsonSolution);
         }
+    }
+
+    @Override
+    public Map<String, Double> getPayloadStatisticsAsNumbers() {
+        Map<String, Double> orpStats = new HashMap<>();
+        orpStats.put(Constants.PAYLOAD_STATISTICS_NUMBER_OF_BINS, (double) model.getNumBins());
+        return orpStats;
     }
 
     @Override
