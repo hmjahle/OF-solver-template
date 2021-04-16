@@ -50,6 +50,11 @@ public class SolvertemplateSolverOrTools extends Solver {
     }
 
     @Override
+    public JSONObject getSolverStatus() {
+        return null;
+    }
+
+    @Override
     public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
         return new HashMap<>();
     }

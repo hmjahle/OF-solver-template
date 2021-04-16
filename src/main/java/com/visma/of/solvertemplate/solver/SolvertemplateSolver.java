@@ -1,7 +1,9 @@
 package com.visma.of.solvertemplate.solver;
 
-import com.visma.of.api.model.Request;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.visma.of.api.model.BinPackingResult;
+import com.visma.of.api.model.Request;
+import com.visma.of.api.model.SolverStatus;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.SolverListener;
 import com.visma.of.solverapi.SolverProvider;
@@ -11,6 +13,7 @@ import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
 import com.visma.of.solvertemplate.solver.solvers.HeuristicSolver;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +21,7 @@ import java.util.Map;
 public class SolvertemplateSolver extends Solver {
 
     private BinPackingModel model;
+    private boolean hasLikelyConverged;
 
     static {
         SolverProvider.registerSolver(new SolvertemplateSolver());
@@ -28,6 +32,7 @@ public class SolvertemplateSolver extends Solver {
         JSONObject jsonObject = getJsonPayload();
         Request dataProvider = Solver.readFromJsonObjectMapper(Request.class, jsonObject.toJSONString());
         model = ModelFactory.generateModelFromDataProvider(dataProvider);
+        hasLikelyConverged = false;
     }
 
     @Override
@@ -35,12 +40,13 @@ public class SolvertemplateSolver extends Solver {
         BinPackingSolution solution = HeuristicSolver.generateBestFitSolution(model);
         BinPackingResult result = BinPackingSolution.generateResult(solution);
         JSONObject jsonSolution = Solver.objectToJsonObject(result);
+        hasLikelyConverged = true;
 
-        if (getFeatureFlags() != null && getFeatureFlags().get(Constants.OF_TEST_FLAG)){
+        if (getFeatureFlags() != null && getFeatureFlags().get(Constants.OF_TEST_FLAG)) {
             System.out.println("Feature flag in solver: SUCCESS");
         }
-        
-        for(SolverListener listener : getListeners()){
+
+        for (SolverListener listener : getListeners()) {
             listener.newBestSolutionFound(jsonSolution);
         }
     }
@@ -50,6 +56,13 @@ public class SolvertemplateSolver extends Solver {
         Map<String, Double> orpStats = new HashMap<>();
         orpStats.put(Constants.PAYLOAD_STATISTICS_NUMBER_OF_BINS, (double) model.getNumBins());
         return orpStats;
+    }
+
+    @Override
+    public JSONObject getSolverStatus() throws JsonProcessingException, ParseException {
+        SolverStatus solverStatus = new SolverStatus().hasLikelyConverged(hasLikelyConverged);
+        JSONObject solverStatusJson = Solver.objectToJsonObject(solverStatus);
+        return solverStatusJson;
     }
 
     @Override
