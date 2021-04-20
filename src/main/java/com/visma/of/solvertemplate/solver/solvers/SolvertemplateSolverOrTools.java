@@ -19,7 +19,7 @@ public class SolvertemplateSolverOrTools extends Solver {
     private BinPackingModel model;
 
     static {
-        SolverProvider.registerSolver(new SolvertemplateSolverOrTools());
+        //SolverProvider.registerSolver(new SolvertemplateSolverOrTools());
         System.out.println("Path is: " + System.getProperty("java.library.path"));
         System.loadLibrary("jniortools");
     }
@@ -51,7 +51,7 @@ public class SolvertemplateSolverOrTools extends Solver {
 
     @Override
     public JSONObject getSolverStatus() {
-        return null;
+        return new JSONObject();
     }
 
     @Override

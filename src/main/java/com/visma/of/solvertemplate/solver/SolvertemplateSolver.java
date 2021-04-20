@@ -21,7 +21,7 @@ import java.util.Map;
 public class SolvertemplateSolver extends Solver {
 
     private BinPackingModel model;
-    private boolean hasLikelyConverged;
+    private boolean hasLikelyConverged = false;
 
     static {
         SolverProvider.registerSolver(new SolvertemplateSolver());
@@ -32,7 +32,6 @@ public class SolvertemplateSolver extends Solver {
         JSONObject jsonObject = getJsonPayload();
         Request dataProvider = Solver.readFromJsonObjectMapper(Request.class, jsonObject.toJSONString());
         model = ModelFactory.generateModelFromDataProvider(dataProvider);
-        hasLikelyConverged = false;
     }
 
     @Override
@@ -61,8 +60,7 @@ public class SolvertemplateSolver extends Solver {
     @Override
     public JSONObject getSolverStatus() throws JsonProcessingException, ParseException {
         SolverStatus solverStatus = new SolverStatus().hasLikelyConverged(hasLikelyConverged);
-        JSONObject solverStatusJson = Solver.objectToJsonObject(solverStatus);
-        return solverStatusJson;
+        return Solver.objectToJsonObject(solverStatus);
     }
 
     @Override

@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.visma.of.api.model.SolverStatus;
 import com.visma.of.solvertemplate.solver.SolvertemplateSolver;
 import com.visma.of.solvertemplate.solver.solvers.SolvertemplateSolverOrTools;
 import org.json.simple.JSONObject;
@@ -35,6 +36,7 @@ public class TestSolver {
         solvertemplateSolver.initialize(model);
         Assert.assertNotNull(solvertemplateSolver.getJsonPayload());
         solvertemplateSolver.solve();
+        Assert.assertTrue((boolean) solvertemplateSolver.getSolverStatus().get(SolverStatus.JSON_PROPERTY_HAS_LIKELY_CONVERGED));
     }
 
 }
