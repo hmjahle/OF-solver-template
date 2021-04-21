@@ -1,6 +1,7 @@
 package com.visma.of.solvertemplate.solver;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.visma.of.api.model.BinPackingResult;
 import com.visma.of.api.model.Request;
 import com.visma.of.api.model.SolverStatus;
@@ -13,6 +14,7 @@ import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import com.visma.of.solvertemplate.solver.solution.BinPackingSolution;
 import com.visma.of.solvertemplate.solver.solvers.HeuristicSolver;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
@@ -58,9 +60,9 @@ public class SolvertemplateSolver extends Solver {
     }
 
     @Override
-    public JSONObject getSolverStatus() throws JsonProcessingException, ParseException {
+    public JSONObject getSolverStatus(JSONParser parser, ObjectMapper objectMapper) throws JsonProcessingException, ParseException {
         SolverStatus solverStatus = new SolverStatus().hasLikelyConverged(hasLikelyConverged);
-        return Solver.objectToJsonObject(solverStatus);
+        return Solver.objectToJsonObject(solverStatus, parser, objectMapper);
     }
 
     @Override

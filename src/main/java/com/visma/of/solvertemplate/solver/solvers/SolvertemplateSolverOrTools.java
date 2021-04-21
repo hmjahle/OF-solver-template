@@ -1,5 +1,6 @@
 package com.visma.of.solvertemplate.solver.solvers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.ortools.linearsolver.MPSolver;
 import com.visma.of.api.model.Request;
 import com.visma.of.api.model.BinPackingResult;
@@ -10,6 +11,7 @@ import com.visma.of.solvertemplate.constants.Constants;
 import com.visma.of.solvertemplate.solver.model.BinPackingModel;
 import com.visma.of.solvertemplate.solver.model.ModelFactory;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,9 +52,10 @@ public class SolvertemplateSolverOrTools extends Solver {
     }
 
     @Override
-    public JSONObject getSolverStatus() {
+    public JSONObject getSolverStatus(JSONParser jsonParser, ObjectMapper objectMapper) throws Exception {
         return new JSONObject();
     }
+
 
     @Override
     public Map<String, Boolean> getSolverFeatureFlagDefaultValues() {
