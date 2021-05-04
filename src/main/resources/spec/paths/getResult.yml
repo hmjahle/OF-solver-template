@@ -25,9 +25,3 @@ responses:
           type: array
           items:
             $ref: "../schemas/response/BinPackingResult.yml"
-  400:
-    description: Bad request
-  404:
-    description: Result not found
-  500:
-    description: Internal Server Error

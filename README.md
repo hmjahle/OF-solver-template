@@ -119,6 +119,10 @@ paths:
 
 NOTE: do not add the *servers* components in the openapi-spec file, as this is added by Solver Service.
 
+### Adding status codes for an endpoint
+The start endpoint should not contain any status codes, this is handled inside solver service
+For result endpoint it should only contain the success status codes. The other status codes should be handled by solver service and is general for all solvers
+
 # Feature toggling guide
 This is a description of how to use feature toggles inside a solver. The solver's responsibility is only to define the name of the feature flag and the default value. The retrieval of the flag from launch darkly is handled by Solver Wrapper.
 
