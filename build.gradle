@@ -35,7 +35,7 @@ targetCompatibility = 1.8
 task incrementVersion {
     doLast{
         Properties props = new Properties()
-        File propsFile = new File('gradle.properties')
+        File propsFile = file('gradle.properties')
         props.load(propsFile.newDataInputStream())
         def stable_project_version = props.getProperty('version') as String
         def (major, minor) = stable_project_version.tokenize('.')
@@ -114,7 +114,7 @@ repositories {
     }
 }
 
-static boolean shouldUseLinux() {
+boolean shouldUseLinux() {
     return System.getenv('OS') == "Linux"
 }
 
@@ -132,8 +132,8 @@ tasks.withType(Test) {
 //
 // Code to automatically add specification for schemas to the openapi-spec file
 //
-static void writeOpenAPISpecToFile(def directory, def fileName, def extension, def infoList) {
-    new File("$directory/$fileName$extension").withWriter { out ->
+void writeOpenAPISpecToFile(def directory, def fileName, def extension, def infoList) {
+    file("$directory/$fileName$extension").withWriter { out ->
         infoList.each {
             out.println it
         }
@@ -142,9 +142,9 @@ static void writeOpenAPISpecToFile(def directory, def fileName, def extension, d
 
 writeOpenAPISpecToFile("src/main/resources/spec", "schemas", ".yml", fetchSchemaSpecifications())
 
-static List<String> fetchSchemaSpecifications() {
+List<String> fetchSchemaSpecifications() {
     List<String> schemaSpecification = new ArrayList<>()
-    File schemasRequest = new File('src/main/resources/spec/schemas/request')
+    File schemasRequest = file('src/main/resources/spec/schemas/request')
     schemasRequest.eachFile {
         String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
         if ("${it.name}".split("\\.")[1] != "json" && fileName != "") {
@@ -152,7 +152,7 @@ static List<String> fetchSchemaSpecifications() {
             schemaSpecification.add("  \$ref: \"./schemas/request/" + fileName + ".yml\"")
         }
     }
-    File schemasResponse = new File('src/main/resources/spec/schemas/response')
+    File schemasResponse = file('src/main/resources/spec/schemas/response')
     schemasResponse.eachFile {
         String fileName = "${it.name}".take("${it.name}".lastIndexOf('.'))
         if (fileName != "") {
@@ -164,11 +164,11 @@ static List<String> fetchSchemaSpecifications() {
 }
 //
 
-static String getFileNamesToCreateModelsFor() {
+String getFileNamesToCreateModelsFor() {
     // This function loops over the files in src/main/resources/spec/schemas
     // and returns a string with all file names, separated by ",", without extensions
     String models = ""
-    File dh = new File('src/main/resources/spec/schemas')
+    File dh = file('src/main/resources/spec/schemas')
     dh.eachFile {
         models += "${it.name}".take("${it.name}".lastIndexOf('.')) + ","
     }
