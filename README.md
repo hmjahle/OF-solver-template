@@ -13,23 +13,15 @@ Copy the whole project. If you are not going to use or-tools, do not copy or-too
 - SolvertemplateSolver should be in package com/visma/of/solvertemplate/solver/
 - SolvertemplateValidator should be in package com/visma/of/solvertemplate/validator/
 
-## Installation and OR-Tools
+## Installation
 
-Gradle 5.6 needs to be installed to run or-tools locally. SDK is recommended to install specific version of Gradle. SDK installation for OSX can be found [here](https://sdkman.io/install). 
+SDKman is recommended to install specific version of Gradle. SDKman installation for OSX can be found [here](https://sdkman.io/install). 
 
-When SDK is installed, install Gradle version 5.6:
+When SDKman is installed, install the newest Gradle version by using e.g:
 
 ```bash
-sdk install gradle 5.6
+sdk install gradle 7.0
 ```
-
-If you would like to run or-tools in a main class locally, vm options need to be added. This can be done by editing configurations and adding the following code into vm options: 
-
-```
--Djava.library.path=build/my-libs/or-tools-osx/
-```
-
-Download the files or-tools-centos and or-tools-osx and put them in top folder (under ka-solver)
 
 You also need to install swagger-cli, using this command:
 
@@ -37,7 +29,7 @@ You also need to install swagger-cli, using this command:
 npm install -g swagger-cli
 ```
 
-Finish by running the following command which downloads the or-tools. This can be done once (creates build folder with or-tools).
+Finish by running the following command:
 
 ```bash
 gradle clean build

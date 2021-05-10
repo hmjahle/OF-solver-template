@@ -85,13 +85,13 @@ ext {
 
 dependencies {
     if (shouldUseOrTools()) {
-        compile(
+        implementation(
                 "com.google.protobuf:protobuf-java:3.0.0",
                 files("or-tools-centos/lib/com.google.ortools.jar")
         )
     }
     // #### ADD OTHER DEPENDENCIES INSIDE THE FOLLOWING COMPILE ####
-    compile(
+    implementation(
             "com.visma.of:solver-api:$solver_api_version",
             "io.swagger:swagger-annotations:$swagger_annotations_version",
             "com.fasterxml.jackson.core:jackson-core:$jackson_version",
@@ -101,7 +101,7 @@ dependencies {
             "javax.validation:validation-api:$validation_version",
 
     )
-    testCompile group: 'junit', name: 'junit', version: '4.13'
+    testImplementation group: 'junit', name: 'junit', version: '4.13'
 }
 
 repositories {
