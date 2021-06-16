@@ -15,7 +15,7 @@ public class SolvertemplateValidator extends Validator {
 
 
     static {
-        ValidatorProvider.registerValidator(new SolvertemplateValidator());
+        ValidatorProvider.registerValidator(SolvertemplateValidator.class);
     }
 
     public SolvertemplateValidator() {

@@ -26,7 +26,7 @@ public class SolvertemplateSolver extends Solver {
     private boolean hasLikelyConverged = false;
 
     static {
-        SolverProvider.registerSolver(new SolvertemplateSolver());
+        SolverProvider.registerSolver(SolvertemplateSolver.class);
     }
 
     @Override
