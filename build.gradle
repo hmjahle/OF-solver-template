@@ -82,7 +82,7 @@ ext {
     validation_version = "2.0.1.Final"
     javax_annotation_version = "1.3.2"
     json_simple_version="1.1.1"
-    json_schema_validator_version="2.2.14"
+    google_findbugs_version = "3.0.2"
 }
 
 dependencies {
@@ -102,8 +102,7 @@ dependencies {
             "javax.annotation:javax.annotation-api:$javax_annotation_version",
             "javax.validation:validation-api:$validation_version",
             "com.googlecode.json-simple:json-simple:$json_simple_version",
-            "com.github.java-json-tools:json-schema-validator:$json_schema_validator_version"
-
+            "com.google.code.findbugs:jsr305:$google_findbugs_version"
     )
     testImplementation group: 'junit', name: 'junit', version: '4.13'
 }

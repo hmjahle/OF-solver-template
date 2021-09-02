@@ -1,6 +1,5 @@
 package com.visma.of.solvertemplate.validator;
 
-import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import com.visma.of.api.model.Request;
 import com.visma.of.solverapi.Solver;
 import com.visma.of.solverapi.Validator;
@@ -23,7 +22,7 @@ public class SolvertemplateValidator extends Validator {
     }
 
     @Override
-    public boolean validate(JSONObject openApiObject, JSONObject requestObject) throws IOException, ProcessingException {
+    public boolean validate(JSONObject openApiObject, JSONObject requestObject) throws IOException {
         return validatePayload(openApiObject, requestObject) && validateBinPackingData();
     }
 
