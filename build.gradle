@@ -104,7 +104,7 @@ dependencies {
             "com.googlecode.json-simple:json-simple:$json_simple_version",
             "com.google.code.findbugs:jsr305:$google_findbugs_version"
     )
-    testImplementation group: 'junit', name: 'junit', version: '4.13'
+    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
 }
 
 repositories {
