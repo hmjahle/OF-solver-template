@@ -28,12 +28,12 @@ plugins {
 
 group 'com.visma.of'
 mainClassName = 'Main'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 
 task incrementVersion {
-    doLast{
+    doLast {
         Properties props = new Properties()
         File propsFile = file('gradle.properties')
         props.load(propsFile.newDataInputStream())
@@ -81,7 +81,7 @@ ext {
     jackson_databind_version = "2.11.4"
     validation_version = "2.0.1.Final"
     javax_annotation_version = "1.3.2"
-    json_simple_version="1.1.1"
+    json_simple_version = "1.1.1"
     google_findbugs_version = "3.0.2"
 }
 
@@ -274,7 +274,7 @@ publishing {
             artifactId = "solvertemplate"
             version = "${version}"
             from components.java
-            artifact (sourcesJar) {
+            artifact(sourcesJar) {
                 classifier = 'sources'
             }
         }
