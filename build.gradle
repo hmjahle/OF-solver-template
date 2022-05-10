@@ -294,7 +294,17 @@ artifactoryPublish {
 // code will be generated during compilation
 compileJava.dependsOn(generateCode)
 
+sonarqube {
+    properties {
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.projectName", "of-solver-template"
+        property "sonar.projectKey", "OF-solver-template"
+        property "sonar.projectBaseDir", "$rootDir"
+        property "sonar.exclusions", "build/java-client/src/main/java/com/visma/of/api/model/*"
+    }
+}
 tasks['sonarqube'].dependsOn test
+
 jacocoTestReport {
     reports {
         xml.enabled true
