@@ -75,7 +75,7 @@ boolean shouldUseOrTools() {
 
 // dependency versions
 ext {
-    solver_api_version = "1.55"
+    solver_api_version = "1.56"
     swagger_annotations_version = "1.6.6"
     jackson_version = "2.13.3"
     jackson_databind_version = "2.13.3"
