@@ -88,7 +88,7 @@ ext {
 dependencies {
     if (shouldUseOrTools()) {
         implementation(
-                "com.google.protobuf:protobuf-java:3.21.1",
+                "com.google.protobuf:protobuf-java:3.21.2",
                 files("or-tools-centos/lib/com.google.ortools.jar")
         )
     }
